@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import SignInButton from './signInButton'
 
 const header = () => {
     return (
@@ -19,7 +20,10 @@ const header = () => {
                         <Link href="/api/auth/signin" className="text-white hover:underline">
                             login
                         </Link>
-                    </li> 
+                    </li>
+                    <li>
+                        <SignInButton />
+                    </li>
                 </ul>
             </nav>
         </header>
