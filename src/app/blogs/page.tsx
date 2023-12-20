@@ -25,10 +25,13 @@ const BlogsPage = async () => {
                         className="bg-white p-4 rounded-md shadow"
                     >
                         <h2 className="text-xl font-bold">{post.title}</h2>
-                        <p>질문자: {post.author?.name}</p>
-                        <p>
-                            작성일: {dayjs(post.createdAt).format("YYYY-MM-DD")}
-                        </p>
+                        <div className="flex-col text-xs">
+                            <p>질문자: {post.author?.name}</p>
+                            <p>
+                                작성일:{" "}
+                                {dayjs(post.createdAt).format("YYYY-MM-DD")}
+                            </p>
+                        </div>
                     </Link>
                 ))}
             </div>

@@ -5,6 +5,8 @@ import { FormData } from "@/types/blog";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { quill_formats, quill_modules } from "./EditorComponent";
+import ReactQuill from "react-quill";
 
 const inputClass =
     "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-blue-300";
@@ -17,16 +19,22 @@ const FormNewPost = () => {
     const { data } = useSession();
     const router = useRouter();
 
-    const handleChange = (
+    const handleQuillChange = (value: string) => {
+        console.log(value);
+        setFormData({
+            ...formData,
+            content: value,
+        });
+    };
+
+    const handleTitleChange = (
         e: ChangeEvent<HTMLTextAreaElement | HTMLElement>
     ) => {
-        // e: ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
-        // const { name, value } = e.target;
         const elem = e.target as HTMLInputElement;
         setFormData({
             ...formData,
-            [elem.name]: elem.value,
+            title: elem.value,
         });
     };
 
@@ -45,34 +53,46 @@ const FormNewPost = () => {
     };
 
     return (
-        <form className="max-w-md mx-auto p-4" onSubmit={handleSubmit}>
+        <form className="p-4" onSubmit={handleSubmit}>
             <div className="mb-4">
                 <input
                     type="text"
                     className={inputClass}
-                    placeholder="Enter the title"
+                    placeholder="제목 입력"
                     name="title"
                     value={formData.title}
-                    onChange={handleChange}
+                    onChange={handleTitleChange}
                 />
             </div>
-            <div className="mb-4">
-                <ReactTextareaAutosize
+            <div className="mb-4" style={{ height: "500px" }}>
+                <ReactQuill
+                    modules={quill_modules}
+                    style={{ height: "440px" }}
+                    formats={quill_formats}
+                    theme="snow"
+                    value={formData.content}
+                    onChange={handleQuillChange}
+                    placeholder="본문"
+                />
+
+                {/* <ReactTextareaAutosize
                     minRows={5}
                     name="content"
                     className={inputClass}
                     placeholder="Enter the content"
                     value={formData.content}
                     onChange={handleChange}
-                />
+                /> */}
             </div>
-            <button
-                disabled={!data?.user?.email}
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"
-            >
-                글 업로드
-            </button>
+            <div className="">
+                <button
+                    disabled={!data?.user?.email}
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"
+                >
+                    글 업로드
+                </button>
+            </div>
         </form>
     );
 };
