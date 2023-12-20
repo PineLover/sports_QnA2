@@ -5,7 +5,7 @@ import { FormData } from "@/types/blog";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { quill_formats, quill_modules } from "./EditorComponent";
+import { quill_formats, quill_modules } from "./QuillEditorComponent";
 import ReactQuill from "react-quill";
 
 const inputClass =

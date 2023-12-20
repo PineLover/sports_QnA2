@@ -4,17 +4,10 @@ import "react-quill/dist/quill.snow.css";
 
 export const quill_modules = {
     toolbar: [
-        [{ header: "1" }, { header: "2" }, { font: [] }],
-        [{ size: [] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
-        ],
+        [{ header: "1" }, { header: "2" }],
+        ["bold", "italic", "underline", "strike"],
+
         ["link", "image", "video"],
-        ["clean"],
     ],
     clipboard: {
         // toggle to add extra line breaks when pasting HTML:
@@ -27,12 +20,9 @@ export const quill_formats = [
     "font",
     "size",
     "bold",
-    "italic",
     "underline",
     "strike",
     "blockquote",
-    "list",
-    "bullet",
     "align",
     "image",
 ];

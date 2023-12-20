@@ -1,9 +1,7 @@
 import Comments from "@/components/comments";
 import FormComments from "@/components/form-comments";
 import prisma from "@/lib/db";
-import { format } from "date-fns";
 import dayjs from "dayjs";
-import DOMPurify from "isomorphic-dompurify";
 import React, { FC } from "react";
 
 interface BlogDetailPageProps {
@@ -36,20 +34,9 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
             </div>
 
             <div className="mt-4 bg-white rounded px-0 py-4">
-                {post?.content}
-                {/* <div
-                    dangerouslySetInnerHTML={{ __html: post?.content ?? "" }}
-                /> */}
-
+                {/* {post?.content} */}
                 <div
-                    dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(post?.content ?? ""),
-                    }}
-                    style={{
-                        marginTop: "30px",
-                        overflow: "hidden",
-                        whiteSpace: "pre-wrap",
-                    }}
+                    dangerouslySetInnerHTML={{ __html: post?.content ?? "" }}
                 />
             </div>
 
