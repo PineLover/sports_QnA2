@@ -1,8 +1,12 @@
-import Link from 'next/link'
-import React from 'react'
-import SignInButton from './signInButton'
+import Link from "next/link";
+import React from "react";
+import SignInButton from "./signInButton";
+import { getCurrentUser } from "@/lib/session";
+import LogOutButton from "./LogOutButton";
 
-const header = () => {
+const header = async () => {
+    const user = await getCurrentUser();
+
     return (
         <header className="bg-blue-500 p-4">
             <nav className="flex justify-between items-center max-w-4xl mx-auto">
@@ -12,22 +16,29 @@ const header = () => {
 
                 <ul className="flex space-x-4">
                     <li>
-                        <Link href="/blogs" className="text-white hover:underline">
+                        <Link
+                            href="/blogs"
+                            className="text-white hover:underline"
+                        >
                             Blogs
                         </Link>
-                    </li> 
-                    <li>
-                        <Link href="/api/auth/signin" className="text-white hover:underline">
-                            login
-                        </Link>
                     </li>
-                    <li>
-                        <SignInButton />
-                    </li>
+                    {user?.name ? (
+                        <LogOutButton />
+                    ) : (
+                        <li>
+                            <Link
+                                href="/api/auth/signin"
+                                className="text-white hover:underline"
+                            >
+                                login
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>
-    )
-}
+    );
+};
 
-export default header
+export default header;
