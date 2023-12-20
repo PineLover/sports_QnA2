@@ -14,26 +14,42 @@ const header = async () => {
                     운동 고수들이 모인곳 - 운고
                 </Link>
 
-                <ul className="flex space-x-4">
-                    <li>
+                <ul className="flex space-x-5">
+                    <div>
+                        <Link
+                            href="/question"
+                            className="text-white hover:underline"
+                        >
+                            질문작성
+                        </Link>
+                    </div>
+                    <div>
                         <Link
                             href="/blogs"
                             className="text-white hover:underline"
                         >
-                            전체글
+                            질문목록
                         </Link>
-                    </li>
+                    </div>
                     {user?.name ? (
-                        <LogOutButton />
+                        <div className="space-x-3">
+                            <Link
+                                href="/profile"
+                                className="text-white hover:underline"
+                            >
+                                프로필
+                            </Link>
+                            <LogOutButton />
+                        </div>
                     ) : (
-                        <li>
+                        <div>
                             <Link
                                 href="/api/auth/signin"
                                 className="text-white hover:underline"
                             >
                                 로그인
                             </Link>
-                        </li>
+                        </div>
                     )}
                 </ul>
             </nav>
