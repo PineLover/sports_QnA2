@@ -8,7 +8,7 @@ const LogOutButton = () => {
             onClick={() => signOut()}
             className="text-white hover:underline"
         >
-            Logout
+            로그아웃
         </button>
     );
 };

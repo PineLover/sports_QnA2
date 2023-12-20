@@ -37,18 +37,11 @@ const FormComment: FC<FormCommentProps> = ({ postId }) => {
     return (
         <div>
             <div className="mt-4">
-                <label
-                    htmlFor="comments"
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                    Add Comment
-                </label>
-
                 <input
                     value={comment}
                     onChange={handleCommentChange}
                     type="text"
-                    className="w-full py-2 px-3 bordr border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                    className="w-full py-2 px-4 bordr border-gray-300 rounded-md outline-none ring focus:border-blue-300"
                     name="comment"
                 />
                 <button
@@ -56,7 +49,7 @@ const FormComment: FC<FormCommentProps> = ({ postId }) => {
                     onClick={handleSubmitComment}
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mt-2 disabled:bg-gray-400"
                 >
-                    Submit Comment
+                    댓글 등록
                 </button>
             </div>
         </div>

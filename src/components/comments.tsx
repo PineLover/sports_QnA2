@@ -1,6 +1,8 @@
 import prisma from "@/lib/db";
-import { format } from "date-fns";
+import { format } from "date-fns/format";
 import React, { FC } from "react";
+import { ko } from "date-fns/locale";
+import dayjs from "dayjs";
 
 interface CommentsProps {
     postId: string;
@@ -17,17 +19,19 @@ const Comments: FC<CommentsProps> = async ({ postId }) => {
     });
 
     return (
-        <div className="mt-8">
-            <h2 className="text-2xl font-bold">Comments</h2>
+        <div className="mt-8 px-1 py-2">
+            <h2 className="text-xl font-bold">댓글 {comments.length}개</h2>
             <ul>
                 {comments.map((comment) => (
-                    <li key={comment.id} className="mb-4 bg-slate-300 p-2">
+                    <li key={comment.id} className="mb-4">
                         <div className="flex items-center mb-2">
                             <div className="text-blue-500 font-bold mr-2">
                                 {comment.author?.name}
                             </div>
                             <div className="text-gray-500">
-                                {format(comment.createdAt, "MMMM d, yyyy")}
+                                {dayjs(comment.createdAt).format(
+                                    "YYYY.MM.DD hh:m"
+                                )}
                             </div>
                         </div>
                         <p>{comment.text}</p>

@@ -8,10 +8,10 @@ const header = async () => {
     const user = await getCurrentUser();
 
     return (
-        <header className="bg-blue-500 p-4">
+        <header className="bg-indigo-500 p-4">
             <nav className="flex justify-between items-center max-w-4xl mx-auto">
                 <Link href="/" className="text-white text-2xl font-bold">
-                    My Blogs
+                    운동 고수들이 모인곳 - 운고
                 </Link>
 
                 <ul className="flex space-x-4">
@@ -20,7 +20,7 @@ const header = async () => {
                             href="/blogs"
                             className="text-white hover:underline"
                         >
-                            Blogs
+                            전체글
                         </Link>
                     </li>
                     {user?.name ? (
@@ -31,7 +31,7 @@ const header = async () => {
                                 href="/api/auth/signin"
                                 className="text-white hover:underline"
                             >
-                                login
+                                로그인
                             </Link>
                         </li>
                     )}
