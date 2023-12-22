@@ -1,4 +1,4 @@
-import LikePost from "@/components/LikePost";
+import LikePost from "@/components/Post/LikePost";
 import Comments from "@/components/Comment/comments";
 import FormComments from "@/components/form-comments";
 import prisma from "@/lib/db";
@@ -46,7 +46,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
                     dangerouslySetInnerHTML={{ __html: post?.content ?? "" }}
                 />
             </div>
-            {/* <LikePost /> */}
+            <LikePost />
             <Comments postId={params.id} />
             <FormComments postId={params.id} />
         </div>

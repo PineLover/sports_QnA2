@@ -1,40 +1,27 @@
 import prisma from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
-    const user = await getCurrentUser();
-
+export async function GET(req: NextRequest) {
     try {
-        if (!user?.email) {
-            return NextResponse.json(
-                { message: "Not Authenticated!" },
-                { status: 401 }
-            );
-        }
-
-        const { comment_id } = await req.json();
-
-        const likedComment = await prisma.likedComments.create({
-            data: {
-                commentId: comment_id,
-                personLikedEmail: user?.email,
-            },
-        });
-
-        console.log(likedComment);
-
-        const updatedComment = await prisma.comment.update({
-            where: { id: comment_id },
-            data: {
-                LikedComments: {
-                    create: [likedComment],
+        const comment_id = req.nextUrl.searchParams.get("comment_id");
+        if (comment_id) {
+            const likedCommentCount = await prisma.comment.count({
+                where: {
+                    id: comment_id,
                 },
-            },
-        });
+            });
 
-        return NextResponse.json({ updatedComment }, { status: 200 });
+            return NextResponse.json(
+                { likedCount: likedCommentCount },
+                { status: 200 }
+            );
+        } else {
+            return NextResponse.json({ likedCount: 0 }, { status: 200 });
+        }
     } catch (error) {
+        console.log(error);
         return NextResponse.json(
             { message: "Something went wrong!" },
             { status: 500 }
