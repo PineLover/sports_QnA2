@@ -47,6 +47,12 @@ model User {
   sessions      Session[]
   posts         Post[]
   comments      Comment[]
+
+  sports   Sports? @relation(fields: [sportsId], references: [id])
+  sportsId String?
+
+  LikedComments LikedComments[]
+  LikedPosts    LikedPosts[]
 }
 
 model VerificationToken {
@@ -65,6 +71,12 @@ model Post {
   authorEmail String?
   createdAt   DateTime  @default(now())
   comments    Comment[]
+
+  sports   Sports? @relation(fields: [sportsId], references: [id])
+  sportsId String?
+
+  viewCount  Int          @default(0)
+  LikedPosts LikedPosts[]
 }
 
 model Comment {
@@ -74,6 +86,36 @@ model Comment {
 
   author      User?   @relation(fields: [authorEmail], references: [email])
   authorEmail String?
-  Post        Post?   @relation(fields: [postId], references: [id])
-  postId      String?
+
+  Post          Post?           @relation(fields: [postId], references: [id])
+  postId        String?
+  LikedComments LikedComments[]
+}
+
+model Sports {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  name      String
+  Post      Post[]
+  User      User[]
+}
+
+model LikedPosts {
+  id String @id @default(cuid())
+
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+
+  personLiked      User?   @relation(fields: [personLikedEmail], references: [email])
+  personLikedEmail String?
+}
+
+model LikedComments {
+  id String @id @default(cuid())
+
+  Comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?
+
+  personLiked      User?   @relation(fields: [personLikedEmail], references: [email])
+  personLikedEmail String?
 }

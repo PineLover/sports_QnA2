@@ -1,4 +1,5 @@
-import Comments from "@/components/comments";
+import LikePost from "@/components/LikePost";
+import Comments from "@/components/Comment/comments";
 import FormComments from "@/components/form-comments";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
@@ -20,6 +21,11 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
         },
     });
 
+    await prisma.post.update({
+        where: { id: params.id },
+        data: { viewCount: { increment: 1 } },
+    });
+
     return (
         <div className="max-w-4xl mx-auto py-8">
             <h1 className="text-3xl font-bold">{post?.title}</h1>
@@ -30,6 +36,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
                         작성일:{" "}
                         {dayjs(post?.createdAt).format("YYYY.MM.DD hh:m")}
                     </div>
+                    <div className="">조회수: {post?.viewCount ?? 0}</div>
                 </div>
             </div>
 
@@ -39,7 +46,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
                     dangerouslySetInnerHTML={{ __html: post?.content ?? "" }}
                 />
             </div>
-
+            {/* <LikePost /> */}
             <Comments postId={params.id} />
             <FormComments postId={params.id} />
         </div>

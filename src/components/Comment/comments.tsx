@@ -3,6 +3,7 @@ import { format } from "date-fns/format";
 import React, { FC } from "react";
 import { ko } from "date-fns/locale";
 import dayjs from "dayjs";
+import LikeComment from "./LikeComment";
 
 interface CommentsProps {
     postId: string;
@@ -32,6 +33,9 @@ const Comments: FC<CommentsProps> = async ({ postId }) => {
                                 {dayjs(comment.createdAt).format(
                                     "YYYY.MM.DD hh:m"
                                 )}
+                            </div>
+                            <div className="ml-auto">
+                                <LikeComment comment_id={comment.id} />
                             </div>
                         </div>
                         <p>{comment.text}</p>

@@ -1,4 +1,7 @@
-export default function Profile() {
+import { getCurrentUser } from "@/lib/session";
+
+export default async function Profile() {
+    const user = await getCurrentUser();
     return (
         <main className="flex-col grid justify-items-center p-5">
             <div className="m-4 space-y-5">
@@ -12,6 +15,7 @@ export default function Profile() {
                     <a className="link">네이버 블로그</a>
                 </div>
                 <div className="">주소: </div>
+                <div className="">종목: {user?.sports?.name ?? "없음"}</div>
                 <p className="">다양한 운동을 할수있는 스포타임 센터입니다.</p>
 
                 <div className="">그동한 작성한 글 목록</div>

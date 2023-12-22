@@ -1,5 +1,12 @@
 import FormNewPost from "@/components/form-new-post";
+import AllBlogs from "./blogs/AllBlogs";
+import FamousBlogs from "./blogs/FamousBlogs";
 
 export default async function Home() {
-    return <main className="w-3/4 mx-auto my-5"></main>;
+    return (
+        <main className="p-8 space-y-5">
+            <AllBlogs />
+            <FamousBlogs />
+        </main>
+    );
 }
