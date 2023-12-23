@@ -1,12 +1,12 @@
 import FormNewPost from "@/components/form-new-post";
 import AllBlogs from "./blogs/AllBlogs";
-import FamousBlogs from "./blogs/FamousBlogs";
+import MostLikedBlogs from "./blogs/MostLikedBlogs";
 
 export default async function Home() {
     return (
         <main className="p-8 space-y-5">
             <AllBlogs />
-            <FamousBlogs />
+            <MostLikedBlogs />
         </main>
     );
 }

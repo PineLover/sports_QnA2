@@ -4,10 +4,13 @@ import Link from "next/link";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
 
-const FamousBlogs = async () => {
+const MostLikedBlogs = async () => {
     const posts = await prisma.post.findMany({
+        take: 10,
         orderBy: {
-            createdAt: "desc",
+            LikedPosts: {
+                _count: "desc",
+            },
         },
         include: {
             author: true,
@@ -42,4 +45,4 @@ const FamousBlogs = async () => {
     );
 };
 
-export default FamousBlogs;
+export default MostLikedBlogs;
