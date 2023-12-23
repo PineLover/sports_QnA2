@@ -13,12 +13,12 @@ export async function POST(req: Request) {
             );
         }
 
-        const { comment_id } = await req.json();
+        const { postId } = await req.json();
 
-        let check_existence = await prisma.likedComments.count({
+        let check_existence = await prisma.disLikedPosts.count({
             where: {
-                commentId: comment_id,
-                personLikedEmail: user?.email,
+                postId: postId,
+                personDisLikedEmail: user?.email,
             },
         });
 
@@ -26,16 +26,16 @@ export async function POST(req: Request) {
             return NextResponse.json(1, { status: 200 });
         }
 
-        await prisma.likedComments.create({
+        await prisma.disLikedPosts.create({
             data: {
-                commentId: comment_id,
-                personLikedEmail: user?.email,
+                postId: postId,
+                personDisLikedEmail: user?.email,
             },
         });
 
-        const count = await prisma.likedComments.count({
+        const count = await prisma.disLikedPosts.count({
             where: {
-                commentId: comment_id,
+                postId: postId,
             },
         });
 

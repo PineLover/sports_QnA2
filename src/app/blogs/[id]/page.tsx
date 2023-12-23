@@ -1,9 +1,10 @@
-import LikePost from "@/components/Post/LikePost";
+import LikePost from "@/components/Post/LikeDisLikePost";
 import Comments from "@/components/Comment/comments";
 import FormComments from "@/components/form-comments";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
 import React, { FC } from "react";
+import LikeDisLikePost from "@/components/Post/LikeDisLikePost";
 
 interface BlogDetailPageProps {
     params: {
@@ -46,7 +47,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
                     dangerouslySetInnerHTML={{ __html: post?.content ?? "" }}
                 />
             </div>
-            <LikePost />
+            <LikeDisLikePost postId={params.id} />
             <Comments postId={params.id} />
             <FormComments postId={params.id} />
         </div>

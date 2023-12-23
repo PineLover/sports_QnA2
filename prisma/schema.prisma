@@ -53,6 +53,9 @@ model User {
 
   LikedComments LikedComments[]
   LikedPosts    LikedPosts[]
+
+  DisLikedComments DisLikedComments[]
+  DisLikedPosts    DisLikedPosts[]
 }
 
 model VerificationToken {
@@ -75,8 +78,10 @@ model Post {
   sports   Sports? @relation(fields: [sportsId], references: [id])
   sportsId String?
 
-  viewCount  Int          @default(0)
-  LikedPosts LikedPosts[]
+  viewCount Int @default(0)
+
+  LikedPosts    LikedPosts[]
+  DisLikedPosts DisLikedPosts[]
 }
 
 model Comment {
@@ -87,9 +92,11 @@ model Comment {
   author      User?   @relation(fields: [authorEmail], references: [email])
   authorEmail String?
 
-  Post          Post?           @relation(fields: [postId], references: [id])
-  postId        String?
-  LikedComments LikedComments[]
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+
+  LikedComments    LikedComments[]
+  DisLikedComments DisLikedComments[]
 }
 
 model Sports {
@@ -110,6 +117,16 @@ model LikedPosts {
   personLikedEmail String?
 }
 
+model DisLikedPosts {
+  id String @id @default(cuid())
+
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+
+  personDisLiked      User?   @relation(fields: [personDisLikedEmail], references: [email])
+  personDisLikedEmail String?
+}
+
 model LikedComments {
   id String @id @default(cuid())
 
@@ -118,4 +135,14 @@ model LikedComments {
 
   personLiked      User?   @relation(fields: [personLikedEmail], references: [email])
   personLikedEmail String?
+}
+
+model DisLikedComments {
+  id String @id @default(cuid())
+
+  Comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?
+
+  personDisLiked      User?   @relation(fields: [personDisLikedEmail], references: [email])
+  personDisLikedEmail String?
 }
