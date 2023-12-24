@@ -1,11 +1,11 @@
 import React from "react";
-import { posts } from "../data/posts";
 import Link from "next/link";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
 
 const AllBlogs = async () => {
     const posts = await prisma.post.findMany({
+        take: 10,
         orderBy: {
             createdAt: "desc",
         },

@@ -31,6 +31,7 @@ const header = async () => {
                             질문목록
                         </Link>
                     </div>
+
                     {user?.name ? (
                         <div className="space-x-3">
                             <Link
