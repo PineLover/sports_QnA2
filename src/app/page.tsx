@@ -1,4 +1,3 @@
-import FormNewPost from "@/components/form-new-post";
 import AllBlogs from "./blogs/AllBlogs";
 import MostLikedBlogs from "./blogs/MostLikedBlogs";
 import SportsSection from "@/components/SportsSection";
