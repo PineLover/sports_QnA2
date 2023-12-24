@@ -18,6 +18,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
             id: params.id,
         },
         include: {
+            sports: true,
             author: true,
         },
     });
@@ -32,6 +33,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
             <h1 className="text-3xl font-bold">{post?.title}</h1>
             <div className="flex justify-end my-2">
                 <div className="flex-col">
+                    <div className="">종목: {post?.sports?.name}</div>
                     <div className="">질문자: {post?.author?.name}</div>
                     <div className="">
                         작성일:{" "}

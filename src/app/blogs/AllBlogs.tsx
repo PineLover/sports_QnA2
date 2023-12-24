@@ -11,6 +11,7 @@ const AllBlogs = async () => {
         },
         include: {
             author: true,
+            sports: true,
         },
     });
 
@@ -28,6 +29,7 @@ const AllBlogs = async () => {
                     >
                         <h2 className="text-xl font-bold">{post.title}</h2>
                         <div className="flex-col text-xs">
+                            <div className="">종목: {post?.sports?.name}</div>
                             <p>질문자: {post.author?.name}</p>
                             <p>
                                 작성일:{" "}

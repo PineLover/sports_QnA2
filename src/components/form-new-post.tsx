@@ -1,17 +1,46 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import ReactTextareaAutosize from "react-textarea-autosize";
+import React, {
+    ChangeEvent,
+    FormEvent,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { FormData } from "@/types/blog";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { quill_formats, quill_modules } from "./QuillEditorComponent";
-import ReactQuill from "react-quill";
+import { quill_formats } from "./QuillEditorComponent";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "@/firebae/config";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+import { uuid } from "uuidv4";
+import ReactQuill, { ReactQuillProps, Range } from "react-quill";
+
+interface ForwardedQuillComponent extends ReactQuillProps {
+    forwardedRef: React.Ref<ReactQuill>;
+}
+
+const QuillNoSSRWrapper = dynamic(
+    async () => {
+        const { default: QuillComponent } = await import("react-quill");
+        const Quill = ({ forwardedRef, ...props }: ForwardedQuillComponent) => (
+            <QuillComponent ref={forwardedRef} {...props} />
+        );
+        return Quill;
+    },
+    { loading: () => <div>...loading</div>, ssr: false }
+);
 
 const inputClass =
     "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-blue-300";
 
 const FormNewPost = () => {
+    const quillRef = useRef<ReactQuill | null>(null);
+    const [progress, setProgress] = useState<number>(0);
+    const [error, setError] = useState<Error | null>(null);
+
     const [formData, setFormData] = useState<FormData>({
         title: "",
         content: "",
@@ -52,6 +81,83 @@ const FormNewPost = () => {
         }
     };
 
+    // 이미지 핸들러
+    const imageHandler = () => {
+        const input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.click();
+        input.addEventListener("change", async () => {
+            if (quillRef.current && input.files) {
+                const editor = quillRef.current.getEditor();
+                const file = input.files[0];
+                const range = editor.getSelection(true);
+                try {
+                    const fileId = uuid();
+
+                    const formatFile = file.type.split("/")[1];
+                    console.log(formatFile);
+                    const storeageRef = ref(
+                        storage,
+                        `posts/${fileId}.${formatFile}`
+                    );
+                    const uploadTask = uploadBytesResumable(storeageRef, file);
+                    uploadTask.on(
+                        "state_changed",
+                        (snapshot) => {
+                            const progress =
+                                (snapshot.bytesTransferred /
+                                    snapshot.totalBytes) *
+                                100;
+                            setProgress(progress);
+                        },
+                        (error) => {
+                            setError(error);
+                        },
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref).then(
+                                (downloadURL) => {
+                                    console.log(
+                                        "File available at",
+                                        downloadURL
+                                    );
+                                    editor.insertEmbed(
+                                        range.index,
+                                        "image",
+                                        downloadURL
+                                    );
+
+                                    editor.setSelection(range.index, 1);
+                                }
+                            );
+                        }
+                    );
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        });
+    };
+
+    const custom_quill_modules = useMemo(
+        () => ({
+            toolbar: {
+                container: [
+                    [{ header: "1" }, { header: "2" }],
+                    [{ size: [] }],
+                    ["bold", "italic", "underline", "strike", "blockquote"],
+                    [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
+                    ["image"],
+                ],
+                handlers: { image: imageHandler },
+            },
+            clipboard: {
+                matchVisual: false,
+            },
+        }),
+        []
+    );
+
     return (
         <form className="p-4" onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -65,24 +171,16 @@ const FormNewPost = () => {
                 />
             </div>
             <div className="mb-4" style={{ height: "500px" }}>
-                <ReactQuill
-                    modules={quill_modules}
+                <QuillNoSSRWrapper
+                    modules={custom_quill_modules}
                     style={{ height: "440px" }}
                     formats={quill_formats}
                     theme="snow"
+                    forwardedRef={quillRef}
                     value={formData.content}
                     onChange={handleQuillChange}
                     placeholder="본문"
                 />
-
-                {/* <ReactTextareaAutosize
-                    minRows={5}
-                    name="content"
-                    className={inputClass}
-                    placeholder="Enter the content"
-                    value={formData.content}
-                    onChange={handleChange}
-                /> */}
             </div>
             <div className="">
                 <button
@@ -98,3 +196,6 @@ const FormNewPost = () => {
 };
 
 export default FormNewPost;
+function uuidv4() {
+    throw new Error("Function not implemented.");
+}
