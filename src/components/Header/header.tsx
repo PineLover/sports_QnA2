@@ -3,7 +3,6 @@ import React from "react";
 import SignInButton from "./signInButton";
 import { getCurrentUser } from "@/lib/session";
 import LogOutButton from "./LogOutButton";
-import { selectedSportName } from "../SportsSection";
 
 const header = async () => {
     const user = await getCurrentUser();
@@ -14,8 +13,6 @@ const header = async () => {
                 <Link href="/" className="text-white text-2xl font-bold">
                     운동 고수들이 모인곳 - 운고
                 </Link>
-
-                <div className="">{selectedSportName}</div>
 
                 <ul className="flex space-x-5">
                     <div>

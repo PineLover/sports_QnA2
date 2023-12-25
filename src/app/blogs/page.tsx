@@ -1,5 +1,5 @@
 import React from "react";
-import AllBlogs from "./AllBlogs";
+import AllBlogs from "../../components/Board/AllBlogs";
 
 const BlogsPage = async () => {
     return (

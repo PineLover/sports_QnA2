@@ -1,29 +1,28 @@
 "use client";
-import { Sports } from "@/app/sports/page";
-import { SportsSelectContext, ResultContextType } from "@/lib/context";
 import { local_url } from "@/lib/url";
+import { Prisma } from "@prisma/client";
+import Link from "next/link";
 import React, { ChangeEvent, useContext, useState } from "react";
 
-export var selectedSportName = "";
+export type Sports = Prisma.SportsGetPayload<{
+    include: {
+        _count: {
+            select: {
+                Post: true;
+            };
+        };
+    };
+}>;
 
 const SportsSection = () => {
-    var { selectedSportsId } = useContext(SportsSelectContext);
     const [sports, setSports] = useState<Sports[]>([]);
-
     const getSports = async () => {
         try {
             const response = await fetch(`${local_url}/api/sports`);
             const result = await response.json();
             setSports(result.sports);
-
-            selectedSportName = result.sports.name;
         } catch (error) {}
     };
-
-    function selectSportsId(sportsId: string) {
-        selectedSportsId = sportsId;
-        console.log(selectedSportsId);
-    }
 
     getSports();
 
@@ -34,13 +33,13 @@ const SportsSection = () => {
             </h1>
             <div className="flex space-x-5">
                 {sports.map((sport) => (
-                    <div
+                    <Link
                         key={sport.id}
                         className="btn"
-                        onClick={(e) => selectSportsId(`${sport.id}`)}
+                        href={`/sports/${sport.eng_name}`}
                     >
                         {sport.name} - {sport._count.Post}개
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

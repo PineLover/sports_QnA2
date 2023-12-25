@@ -103,6 +103,7 @@ model Sports {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   name      String
+  eng_name  String   @default("")
   Post      Post[]
   User      User[]
 }
