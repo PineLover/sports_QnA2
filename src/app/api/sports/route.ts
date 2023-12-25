@@ -19,6 +19,8 @@ export async function GET(req: NextRequest) {
             },
         });
 
+        console.log(res);
+
         return NextResponse.json({ sports: res }, { status: 200 });
     } catch (error) {
         return NextResponse.json(

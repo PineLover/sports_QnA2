@@ -20,6 +20,7 @@ const SportsSection = () => {
         try {
             const response = await fetch(`${local_url}/api/sports`);
             const result = await response.json();
+            console.log(result.sports);
             setSports(result.sports);
         } catch (error) {}
     };
@@ -36,7 +37,7 @@ const SportsSection = () => {
                     <Link
                         key={sport.id}
                         className="btn"
-                        href={`/sports/${sport.eng_name}`}
+                        href={`/sports/${sport.id}`}
                     >
                         {sport.name} - {sport._count.Post}개
                     </Link>

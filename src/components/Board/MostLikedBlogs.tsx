@@ -1,12 +1,15 @@
-import React from "react";
-import { posts } from "../data/posts";
+import React, { FC } from "react";
 import Link from "next/link";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
+import { SportsSelectedPageProps } from "@/app/sports/[id/page";
 
-const MostLikedBlogs = async () => {
+const MostLikedBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
     const posts = await prisma.post.findMany({
         take: 10,
+        where: {
+            sportsId: params.id,
+        },
         orderBy: {
             LikedPosts: {
                 _count: "desc",

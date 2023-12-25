@@ -6,8 +6,16 @@ export default async function Home() {
     return (
         <main className="p-8 space-y-5">
             <SportsSection />
-            <AllBlogs eng_name={"all"} />
-            <MostLikedBlogs eng_name={"all"} />
+            <AllBlogs
+                params={{
+                    id: "all",
+                }}
+            />
+            <MostLikedBlogs
+                params={{
+                    id: "all",
+                }}
+            />
         </main>
     );
 }
