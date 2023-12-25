@@ -20,7 +20,6 @@ const SportsSection = () => {
         try {
             const response = await fetch(`${local_url}/api/sports`);
             const result = await response.json();
-            console.log(result.sports);
             setSports(result.sports);
         } catch (error) {}
     };

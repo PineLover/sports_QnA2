@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
-import { SportsSelectedPageProps } from "@/app/sports/[id/page";
+import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
 
 const MostLikedBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
     const posts = await prisma.post.findMany({

@@ -10,6 +10,8 @@ export interface SportsSelectedPageProps {
 }
 
 const SportsPage: FC<SportsSelectedPageProps> = async ({ params }) => {
+    console.log(`SportsPage ${params.id}`);
+
     return (
         <main className="p-8 space-y-5">
             <SportsSection />

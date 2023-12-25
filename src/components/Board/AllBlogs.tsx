@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
-import { SportsSelectedPageProps } from "@/app/sports/[id/page";
+import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
 
 const AllBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
     const posts = await prisma.post.findMany({
@@ -16,6 +16,8 @@ const AllBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
             sports: true,
         },
     });
+
+    console.log(`AllBlogs ${params.id}`);
 
     return (
         <div className="">

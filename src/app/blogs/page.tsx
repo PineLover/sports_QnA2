@@ -4,7 +4,11 @@ import AllBlogs from "../../components/Board/AllBlogs";
 const BlogsPage = async () => {
     return (
         <div className="p-8">
-            <AllBlogs />
+            <AllBlogs
+                params={{
+                    id: "all",
+                }}
+            />
         </div>
     );
 };
