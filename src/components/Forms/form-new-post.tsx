@@ -10,7 +10,7 @@ import { FormData } from "@/types/blog";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { quill_formats } from "./QuillEditorComponent";
+import { quill_formats } from "../QuillEditorComponent";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebae/config";
 import "react-quill/dist/quill.snow.css";

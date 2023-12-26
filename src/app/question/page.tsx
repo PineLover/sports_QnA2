@@ -1,4 +1,4 @@
-import FormNewPost from "@/components/form-new-post";
+import FormNewPost from "@/components/Forms/form-new-post";
 
 export default function Question() {
     return (

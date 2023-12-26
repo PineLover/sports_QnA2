@@ -1,6 +1,6 @@
 import LikePost from "@/components/Post/LikeDisLikePost";
 import Comments from "@/components/Comment/comments";
-import FormComments from "@/components/form-comments";
+import FormComments from "@/components/Forms/form-comments";
 import prisma from "@/lib/db";
 import dayjs from "dayjs";
 import React, { FC } from "react";

@@ -18,3 +18,21 @@ export async function getCurrentUser() {
 
     return null;
 }
+
+export async function getCurrentProfile() {
+    const session = await getServerSession(authOptions);
+
+    if (session?.user?.email) {
+        const user = await getCurrentUser();
+        const profile = prisma.profile.findUnique({
+            where: { userId: user?.id },
+            include: {
+                user: true,
+            },
+        });
+
+        return profile;
+    }
+
+    return null;
+}
