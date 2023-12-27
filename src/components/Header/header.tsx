@@ -3,22 +3,28 @@ import React from "react";
 import SignInButton from "./signInButton";
 import { getCurrentUser } from "@/lib/session";
 import LogOutButton from "./LogOutButton";
+import { FcSportsMode } from "react-icons/fc";
 
 const header = async () => {
     const user = await getCurrentUser();
 
     return (
-        <header className="bg-indigo-500 p-4">
-            <nav className="flex justify-between items-center max-w-4xl mx-auto">
-                <Link href="/" className="text-white text-2xl font-bold">
+        <header className="bg-white p-4">
+            <nav className="flex  items-center px-5">
+                <FcSportsMode />
+                <Link
+                    href="/"
+                    className="font-NotoSansKR text-black text-2xl font-normal"
+                >
                     운동 고수들이 모인곳 - 운고
                 </Link>
+                <div className="grow"></div>
 
                 <ul className="flex space-x-5">
                     <div>
                         <Link
                             href="/question"
-                            className="text-white hover:underline"
+                            className="font-NotoSansKR text-black hover:underline"
                         >
                             질문작성
                         </Link>
@@ -26,7 +32,7 @@ const header = async () => {
                     <div>
                         <Link
                             href="/blogs"
-                            className="text-white hover:underline"
+                            className="font-NotoSansKR text-black hover:underline"
                         >
                             질문목록
                         </Link>
@@ -36,7 +42,7 @@ const header = async () => {
                         <div className="space-x-3">
                             <Link
                                 href="/profile"
-                                className="text-white hover:underline"
+                                className="text-black hover:underline"
                             >
                                 프로필
                             </Link>
@@ -46,7 +52,7 @@ const header = async () => {
                         <div>
                             <Link
                                 href="/api/auth/signin"
-                                className="text-white hover:underline"
+                                className="text-black hover:underline"
                             >
                                 로그인
                             </Link>

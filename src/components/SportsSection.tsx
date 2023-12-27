@@ -27,15 +27,13 @@ const SportsSection = () => {
     getSports();
 
     return (
-        <div className="">
-            <h1 className="text-3xl font-bold mb-4 bg-green-100 p-4 rounded">
-                관심 종목 선택
-            </h1>
+        <div className=" p-4">
+            <h1 className="font-NotoSansKR text-lg mb-2">관심 종목 선택</h1>
             <div className="flex space-x-5">
                 {sports.map((sport) => (
                     <Link
                         key={sport.id}
-                        className="btn"
+                        className="btn btn-sm bg-Slate-50"
                         href={`/sports/${sport.id}`}
                     >
                         {sport.name} - {sport._count.Post}개

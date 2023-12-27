@@ -2,6 +2,7 @@
 import React, {
     ChangeEvent,
     FormEvent,
+    useEffect,
     useMemo,
     useRef,
     useState,
@@ -53,15 +54,29 @@ const FormNewPost = () => {
             console.log(`result.sports: ${result.sports}`);
         } catch (error) {}
     };
-
-    getSports();
+    useEffect(() => {
+        getSports();
+    }, []);
 
     const [formData, setFormData] = useState<FormData>({
         title: "",
         content: "",
+        sports: "",
     });
     const { data } = useSession();
     const router = useRouter();
+
+    const handleSportsChange = (
+        e: ChangeEvent<HTMLTextAreaElement | HTMLElement>
+    ) => {
+        e.preventDefault();
+        const elem = e.target as HTMLInputElement;
+        console.log(elem);
+        setFormData({
+            ...formData,
+            sports: elem.value,
+        });
+    };
 
     const handleQuillChange = (value: string) => {
         console.log(value);
@@ -182,9 +197,10 @@ const FormNewPost = () => {
                             type="radio"
                             name="sports"
                             data-title="1"
-                            className="btn"
+                            className="btn btn-sm"
                             aria-label={sport.name}
                             value={sport.id}
+                            onChange={handleSportsChange}
                         />
                     ))}
                 </div>

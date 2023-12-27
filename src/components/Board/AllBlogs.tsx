@@ -21,9 +21,10 @@ const AllBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
 
     return (
         <div className="">
-            <h1 className="text-3xl font-bold mb-4 bg-red-100 p-4 rounded">
+            <h1 className="font-NotoSansKR text-lg mb-2 p-4 rounded">
                 전체 질문
             </h1>
+            <hr className="mb-2" />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
                 {posts.map((post) => (
                     <Link

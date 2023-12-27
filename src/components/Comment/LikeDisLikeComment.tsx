@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -64,8 +64,10 @@ const LikeDisLikeComment: FC<LikeCommentProps> = ({ comment_id }) => {
         } catch (error) {}
     };
 
-    getLikeCount();
-    getDisLikeCount();
+    useEffect(() => {
+        getLikeCount();
+        getDisLikeCount();
+    }, []);
 
     return (
         <div className="flex justify-center space-x-6">
