@@ -15,7 +15,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebae/config";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import ReactQuill, { ReactQuillProps, Range } from "react-quill";
 
 interface ForwardedQuillComponent extends ReactQuillProps {

@@ -18,7 +18,7 @@ export async function POST(req: Request) {
                 userId: user?.id,
             },
         });
-        const { nickname, address, description } = await req.json();
+        const { nickname, address, description, link1 } = await req.json();
 
         if (count == 0) {
             const res = await prisma.profile.create({
@@ -26,6 +26,7 @@ export async function POST(req: Request) {
                     nickname,
                     address,
                     description,
+                    link1,
                     userId: user?.id,
                 },
             });
@@ -39,6 +40,7 @@ export async function POST(req: Request) {
                     nickname,
                     address,
                     description,
+                    link1,
                 },
             });
             return NextResponse.json({ res }, { status: 200 });

@@ -1,18 +1,66 @@
 "use client";
-import { ProfileFormData } from "@/types/blog";
+import { ProfileFormData } from "@/types/profile";
 import axios from "axios";
-import router from "next/router";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+
+import { v4 as uuid } from "uuid";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "@/firebae/config";
+import Image from "next/image";
 
 const inputClass =
     "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-blue-300";
 
 const FormProfile = () => {
+    const [image, setImage] = useState("/blank.png");
+    const router = useRouter();
     const [formData, setFormData] = useState<ProfileFormData>({
         nickname: "",
         address: "",
         description: "",
+        link1: "",
     });
+
+    const handleImage = async (e: any) => {
+        // 내가 받을 파일은 하나기 때문에 index 0값의 이미지를 가짐
+        const file = e.target.files[0];
+        if (!file) return;
+        // 이미지 화면에 띄우기
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e: any) => {
+            if (reader.readyState === 2) {
+                // 파일 onLoad가 성공하면 2, 진행 중은 1, 실패는 0 반환
+                setImage(e.target.result);
+            }
+        };
+        try {
+            const fileId = uuid();
+
+            const formatFile = file.type.split("/")[1];
+            console.log(formatFile);
+            const storeageRef = ref(storage, `posts/${fileId}.${formatFile}`);
+            const uploadTask = uploadBytesResumable(storeageRef, file);
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                },
+                (error) => {},
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        (downloadURL) => {
+                            console.log("File available at", downloadURL);
+                        }
+                    );
+                }
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleNicknameChange = (
         e: ChangeEvent<HTMLTextAreaElement | HTMLElement>
@@ -47,6 +95,17 @@ const FormProfile = () => {
         });
     };
 
+    const handleLink1Change = (
+        e: ChangeEvent<HTMLTextAreaElement | HTMLElement>
+    ) => {
+        e.preventDefault();
+        const elem = e.target as HTMLInputElement;
+        setFormData({
+            ...formData,
+            link1: elem.value,
+        });
+    };
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -54,7 +113,7 @@ const FormProfile = () => {
             const response = await axios.post("/api/profile/edit", formData);
 
             if (response.status === 200) {
-                router.push(`/profile/edit`);
+                router.push(`/profile`);
             }
         } catch (error) {
             console.error(error);
@@ -65,33 +124,65 @@ const FormProfile = () => {
         <div>
             <form className="p-4" onSubmit={handleSubmit}>
                 <div className="mb-4 space-y-5">
-                    <input
-                        type="text"
-                        className={inputClass}
-                        placeholder="이름을 입력하세요"
-                        name="title"
-                        value={formData.nickname}
-                        onChange={handleNicknameChange}
-                    />
+                    {image != "/blank.png" ? (
+                        <Image
+                            src={image}
+                            width={150}
+                            height={150}
+                            alt="프로필 이미지"
+                        />
+                    ) : (
+                        <div></div>
+                    )}
 
-                    <input
-                        type="text"
-                        className={inputClass}
-                        placeholder="주소를 입력하세요"
-                        name="title"
-                        value={formData.address}
-                        onChange={handleAddressChange}
-                    />
+                    <div className="space-x-2">
+                        <input type="file" onChange={handleImage} />
+                    </div>
+                    <div className="">
+                        <label>이름</label>
+                        <input
+                            type="text"
+                            className={inputClass}
+                            placeholder="이름을 입력하세요"
+                            name="title"
+                            value={formData.nickname}
+                            onChange={handleNicknameChange}
+                        />
+                    </div>
 
-                    <input
-                        type="text"
-                        className={inputClass}
-                        placeholder="소개 해주세요 입력하세요."
-                        name="title"
-                        value={formData.description}
-                        onChange={handleDescriptionChange}
-                    />
-
+                    <div className="">
+                        <label>주소</label>
+                        <input
+                            type="text"
+                            className={inputClass}
+                            placeholder="주소를 입력하세요"
+                            name="title"
+                            value={formData.address}
+                            onChange={handleAddressChange}
+                        />
+                    </div>
+                    <div className="">
+                        <label>소개</label>
+                        <input
+                            type="text"
+                            className={inputClass}
+                            placeholder="소개 해주세요 입력하세요."
+                            name="title"
+                            value={formData.description}
+                            onChange={handleDescriptionChange}
+                        />
+                    </div>
+                    <div className="">
+                        <label>홈페이지</label>
+                        <input
+                            type="text"
+                            className={inputClass}
+                            placeholder="홈페이지 링크를 입력하세요."
+                            name="title"
+                            value={formData.link1}
+                            onChange={handleLink1Change}
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"

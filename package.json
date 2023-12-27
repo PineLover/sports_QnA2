@@ -24,7 +24,8 @@
     "react-quill": "^2.0.0",
     "react-textarea-autosize": "^8.5.3",
     "uuid": "^9.0.1",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "v4": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
