@@ -18,15 +18,21 @@ export async function POST(req: Request) {
                 userId: user?.id,
             },
         });
-        const { nickname, address, description, link1 } = await req.json();
+        const { profileImageUrl, link1, nickname, address, description } =
+            await req.json();
+
+        console.log(
+            `xxxxx ${profileImageUrl}, ${link1}, ${nickname}, ${address}, ${description}`
+        );
 
         if (count == 0) {
             const res = await prisma.profile.create({
                 data: {
+                    profileImageUrl,
+                    link1,
                     nickname,
                     address,
                     description,
-                    link1,
                     userId: user?.id,
                 },
             });
@@ -37,15 +43,17 @@ export async function POST(req: Request) {
                     userId: user?.id,
                 },
                 data: {
+                    profileImageUrl,
+                    link1,
                     nickname,
                     address,
                     description,
-                    link1,
                 },
             });
             return NextResponse.json({ res }, { status: 200 });
         }
     } catch (error) {
+        console.log(error);
         return NextResponse.json(
             { message: "Something went wrong!" },
             { status: 500 }

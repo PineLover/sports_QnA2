@@ -1,4 +1,5 @@
 import { getCurrentProfile, getCurrentUser } from "@/lib/session";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function Profile() {
@@ -9,10 +10,16 @@ export default async function Profile() {
         <main className="flex-col grid justify-items-center p-5">
             <div className="m-4 space-y-5">
                 <Link href={"/profile/edit"}>프로필 수정</Link>
-                <img
-                    src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
-                    className="max-w-sm rounded-lg shadow-2xl"
-                />
+                {profile?.profileImageUrl ? (
+                    <Image
+                        src={profile?.profileImageUrl}
+                        width={150}
+                        height={150}
+                        alt="프로필 이미지"
+                    />
+                ) : (
+                    <div></div>
+                )}
                 <h1 className="text-3xl font-bold">{profile?.nickname}</h1>
                 <div className="flex flex-col">
                     <a className="link" href="">

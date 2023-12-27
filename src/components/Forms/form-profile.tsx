@@ -16,10 +16,11 @@ const FormProfile = () => {
     const [image, setImage] = useState("/blank.png");
     const router = useRouter();
     const [formData, setFormData] = useState<ProfileFormData>({
+        profileImageUrl: "",
+        link1: "",
         nickname: "",
         address: "",
         description: "",
-        link1: "",
     });
 
     const handleImage = async (e: any) => {
@@ -53,6 +54,11 @@ const FormProfile = () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         (downloadURL) => {
                             console.log("File available at", downloadURL);
+
+                            setFormData({
+                                ...formData,
+                                profileImageUrl: downloadURL,
+                            });
                         }
                     );
                 }
