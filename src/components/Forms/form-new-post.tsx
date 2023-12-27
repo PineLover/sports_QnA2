@@ -17,6 +17,8 @@ import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { v4 as uuid } from "uuid";
 import ReactQuill, { ReactQuillProps, Range } from "react-quill";
+import { Sports } from "@prisma/client";
+import { local_url } from "@/lib/url";
 
 interface ForwardedQuillComponent extends ReactQuillProps {
     forwardedRef: React.Ref<ReactQuill>;
@@ -40,6 +42,19 @@ const FormNewPost = () => {
     const quillRef = useRef<ReactQuill | null>(null);
     const [progress, setProgress] = useState<number>(0);
     const [error, setError] = useState<Error | null>(null);
+
+    const [sports, setSports] = useState<Sports[]>([]);
+    const getSports = async () => {
+        try {
+            const response = await fetch(`${local_url}/api/sports`);
+            const result = await response.json();
+            setSports(result.sports);
+
+            console.log(`result.sports: ${result.sports}`);
+        } catch (error) {}
+    };
+
+    getSports();
 
     const [formData, setFormData] = useState<FormData>({
         title: "",
@@ -160,6 +175,20 @@ const FormNewPost = () => {
 
     return (
         <form className="p-4" onSubmit={handleSubmit}>
+            <div className="mb-4 space-x-1">
+                <div className="join space-x-2">
+                    {sports.map((sport) => (
+                        <input
+                            type="radio"
+                            name="sports"
+                            data-title="1"
+                            className="btn"
+                            aria-label={sport.name}
+                            value={sport.id}
+                        />
+                    ))}
+                </div>
+            </div>
             <div className="mb-4">
                 <input
                     type="text"
