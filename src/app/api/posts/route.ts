@@ -13,12 +13,13 @@ export async function POST(req: Request) {
             );
         }
 
-        const { title, content } = await req.json();
+        const { title, content, sportsId } = await req.json();
 
         const newPost = await prisma.post.create({
             data: {
                 title,
                 content,
+                sportsId: sportsId,
                 authorEmail: user.email,
             },
         });

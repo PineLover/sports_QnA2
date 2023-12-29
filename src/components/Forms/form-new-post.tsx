@@ -50,8 +50,6 @@ const FormNewPost = () => {
             const response = await fetch(`${local_url}/api/sports`);
             const result = await response.json();
             setSports(result.sports);
-
-            console.log(`result.sports: ${result.sports}`);
         } catch (error) {}
     };
     useEffect(() => {
@@ -61,7 +59,7 @@ const FormNewPost = () => {
     const [formData, setFormData] = useState<FormData>({
         title: "",
         content: "",
-        sports: "",
+        sportsId: "",
     });
     const { data } = useSession();
     const router = useRouter();
@@ -71,15 +69,14 @@ const FormNewPost = () => {
     ) => {
         e.preventDefault();
         const elem = e.target as HTMLInputElement;
-        console.log(elem);
+        console.log(elem.value);
         setFormData({
             ...formData,
-            sports: elem.value,
+            sportsId: elem.value,
         });
     };
 
     const handleQuillChange = (value: string) => {
-        console.log(value);
         setFormData({
             ...formData,
             content: value,
@@ -99,7 +96,7 @@ const FormNewPost = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        console.log(e);
         try {
             const response = await axios.post("api/posts", formData);
 
@@ -126,7 +123,6 @@ const FormNewPost = () => {
                     const fileId = uuid();
 
                     const formatFile = file.type.split("/")[1];
-                    console.log(formatFile);
                     const storeageRef = ref(
                         storage,
                         `posts/${fileId}.${formatFile}`
@@ -147,10 +143,6 @@ const FormNewPost = () => {
                         () => {
                             getDownloadURL(uploadTask.snapshot.ref).then(
                                 (downloadURL) => {
-                                    console.log(
-                                        "File available at",
-                                        downloadURL
-                                    );
                                     editor.insertEmbed(
                                         range.index,
                                         "image",
@@ -194,13 +186,21 @@ const FormNewPost = () => {
                 <div className="join space-x-2">
                     {sports.map((sport) => (
                         <input
+                            className="join-item btn btn-sm"
+                            key={sport.id}
                             type="radio"
                             name="sports"
                             data-title="1"
-                            className="btn btn-sm"
                             aria-label={sport.name}
                             value={sport.id}
-                            onChange={handleSportsChange}
+                            onChange={(e) => {
+                                console.log(sport.id);
+                                setFormData({
+                                    ...formData,
+                                    sportsId: sport.id,
+                                });
+                            }}
+                            required
                         />
                     ))}
                 </div>
@@ -213,6 +213,7 @@ const FormNewPost = () => {
                     name="title"
                     value={formData.title}
                     onChange={handleTitleChange}
+                    required
                 />
             </div>
             <div className="mb-4" style={{ height: "500px" }}>
