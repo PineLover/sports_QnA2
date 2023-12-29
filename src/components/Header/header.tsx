@@ -4,13 +4,14 @@ import SignInButton from "./signInButton";
 import { getCurrentUser } from "@/lib/session";
 import LogOutButton from "./LogOutButton";
 import { FcSportsMode } from "react-icons/fc";
+import { FcQuestions } from "react-icons/fc";
 
 const header = async () => {
     const user = await getCurrentUser();
 
     return (
         <header className="bg-white p-4">
-            <nav className="flex  items-center px-5">
+            <nav className="flex items-center px-5">
                 <FcSportsMode />
                 <Link
                     href="/"
@@ -21,7 +22,8 @@ const header = async () => {
                 <div className="grow"></div>
 
                 <ul className="flex space-x-5">
-                    <div>
+                    <div className="flex items-center">
+                        <FcQuestions />
                         <Link
                             href="/question"
                             className="font-NotoSansKR text-black hover:underline"
