@@ -1,12 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import AllBlogs from "../../components/Board/AllBlogs";
+import { SportsSelectedPageProps } from "../sports/[id]/page";
 
-const BlogsPage = async () => {
+const BlogsPage: FC<SportsSelectedPageProps> = async ({ params }) => {
     return (
         <div className="p-8">
             <AllBlogs
                 params={{
-                    id: "all",
+                    id: `${params.id}`,
+                    q: `${params.q}`,
                 }}
             />
         </div>

@@ -8,12 +8,14 @@ export default async function Home() {
             <SportsSection />
             <AllBlogs
                 params={{
-                    id: "all",
+                    id: "",
+                    q: "",
                 }}
             />
             <MostLikedBlogs
                 params={{
-                    id: "all",
+                    id: "",
+                    q: "",
                 }}
             />
         </main>

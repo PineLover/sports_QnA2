@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/session";
 import LogOutButton from "./LogOutButton";
 import { FcSportsMode } from "react-icons/fc";
 import { FcQuestions } from "react-icons/fc";
+import SearchBar from "./searchBar";
 
 const header = async () => {
     const user = await getCurrentUser();
@@ -22,6 +23,7 @@ const header = async () => {
                 <div className="grow"></div>
 
                 <ul className="flex space-x-5">
+                    <SearchBar />
                     <div className="flex items-center">
                         <FcQuestions />
                         <Link
@@ -31,7 +33,7 @@ const header = async () => {
                             질문작성
                         </Link>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                         <Link
                             href="/blogs"
                             className="font-NotoSansKR text-black hover:underline"
@@ -41,7 +43,7 @@ const header = async () => {
                     </div>
 
                     {user?.name ? (
-                        <div className="space-x-3">
+                        <div className="flex space-x-3 items-center">
                             <Link
                                 href="/profile"
                                 className="text-black hover:underline"
@@ -51,7 +53,7 @@ const header = async () => {
                             <LogOutButton />
                         </div>
                     ) : (
-                        <div>
+                        <div className="flex items-center">
                             <Link
                                 href="/api/auth/signin"
                                 className="text-black hover:underline"

@@ -6,23 +6,24 @@ import { FC } from "react";
 export interface SportsSelectedPageProps {
     params: {
         id: string;
+        q: string;
     };
 }
 
 const SportsPage: FC<SportsSelectedPageProps> = async ({ params }) => {
-    console.log(`SportsPage ${params.id}`);
-
     return (
         <main className="p-8 space-y-5">
             <SportsSection />
             <AllBlogs
                 params={{
                     id: params.id,
+                    q: params.q,
                 }}
             />
             <MostLikedBlogs
                 params={{
                     id: params.id,
+                    q: params.q,
                 }}
             />
         </main>

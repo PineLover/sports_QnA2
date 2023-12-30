@@ -17,7 +17,7 @@ import { storage } from "@/firebae/config";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { v4 as uuid } from "uuid";
-import ReactQuill, { ReactQuillProps, Range } from "react-quill";
+import ReactQuill, { ReactQuillProps } from "react-quill";
 import { Sports } from "@prisma/client";
 import { local_url } from "@/lib/url";
 
@@ -63,18 +63,6 @@ const FormNewPost = () => {
     });
     const { data } = useSession();
     const router = useRouter();
-
-    const handleSportsChange = (
-        e: ChangeEvent<HTMLTextAreaElement | HTMLElement>
-    ) => {
-        e.preventDefault();
-        const elem = e.target as HTMLInputElement;
-        console.log(elem.value);
-        setFormData({
-            ...formData,
-            sportsId: elem.value,
-        });
-    };
 
     const handleQuillChange = (value: string) => {
         setFormData({

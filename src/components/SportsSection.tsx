@@ -27,9 +27,12 @@ const SportsSection = () => {
     getSports();
 
     return (
-        <div className=" p-4">
-            <h1 className="font-NotoSansKR text-lg mb-2">관심 종목 선택</h1>
-            <div className="flex space-x-5">
+        <div className="">
+            <hr className="mb-1" />
+            <h1 className="font-NotoSansKR text-lg mb-2 px-4 py-2">
+                관심 종목 선택
+            </h1>
+            <div className="flex space-x-5 px-4">
                 {sports.map((sport) => (
                     <Link
                         key={sport.id}

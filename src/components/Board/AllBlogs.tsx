@@ -1,3 +1,4 @@
+// "use client";
 import React, { FC } from "react";
 import Link from "next/link";
 import prisma from "@/lib/db";
@@ -7,7 +8,11 @@ import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
 const AllBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
     const posts = await prisma.post.findMany({
         take: 10,
-        where: {},
+        where: {
+            title: {
+                contains: `${params.q}`,
+            },
+        },
         orderBy: {
             createdAt: "desc",
         },
@@ -17,14 +22,12 @@ const AllBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
         },
     });
 
-    console.log(`AllBlogs ${params.id}`);
-
     return (
         <div className="">
+            <hr className="mb-1" />
             <h1 className="font-NotoSansKR text-lg mb-2 p-4 rounded">
                 전체 질문
             </h1>
-            <hr className="mb-2" />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
                 {posts.map((post) => (
                     <Link
