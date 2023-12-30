@@ -1,8 +1,8 @@
 "use client";
+import { LocalStorageIds } from "@/lib/localStorageIds";
 import { local_url } from "@/lib/url";
 import { Prisma } from "@prisma/client";
-import Link from "next/link";
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export type Sports = Prisma.SportsGetPayload<{
     include: {
@@ -16,6 +16,8 @@ export type Sports = Prisma.SportsGetPayload<{
 
 const SportsSection = () => {
     const [sports, setSports] = useState<Sports[]>([]);
+    const [selectedSportsId, setSelectedSportsId] = useState<string>("");
+
     const getSports = async () => {
         try {
             const response = await fetch(`${local_url}/api/sports`);
@@ -24,7 +26,14 @@ const SportsSection = () => {
         } catch (error) {}
     };
 
-    getSports();
+    useEffect(() => {
+        const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
+        setSelectedSportsId(id);
+
+        console.log(id);
+
+        getSports();
+    }, []);
 
     return (
         <div className="">
@@ -33,15 +42,38 @@ const SportsSection = () => {
                 관심 종목 선택
             </h1>
             <div className="flex space-x-5 px-4">
-                {sports.map((sport) => (
-                    <Link
-                        key={sport.id}
-                        className="btn btn-sm bg-Slate-50"
-                        href={`/sports/${sport.id}`}
-                    >
-                        {sport.name} - {sport._count.Post}개
-                    </Link>
-                ))}
+                {sports.map((sport) =>
+                    selectedSportsId == sport.id ? (
+                        <div
+                            key={sport.id}
+                            className="btn btn-sm bg-red-200"
+                            onClick={() => {
+                                localStorage.setItem(
+                                    LocalStorageIds.sportsId,
+                                    sport.id
+                                );
+                                setSelectedSportsId(sport.id);
+                            }}
+                        >
+                            {sport.name} - {sport._count.Post}개
+                        </div>
+                    ) : (
+                        <div
+                            key={sport.id}
+                            className="btn btn-sm bg-Slate-50"
+                            onClick={() => {
+                                localStorage.setItem(
+                                    LocalStorageIds.sportsId,
+                                    sport.id
+                                );
+                                setSelectedSportsId(sport.id);
+                                location.reload();
+                            }}
+                        >
+                            {sport.name} - {sport._count.Post}개
+                        </div>
+                    )
+                )}
             </div>
         </div>
     );
