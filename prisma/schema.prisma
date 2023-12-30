@@ -84,6 +84,8 @@ model Profile {
   sports   Sports? @relation(fields: [sportsId], references: [id])
   sportsId String?
 
+  isAdmin Boolean @default(false)
+
   createdAt DateTime @default(now())
 }
 
@@ -103,6 +105,8 @@ model Post {
 
   LikedPosts    LikedPosts[]
   DisLikedPosts DisLikedPosts[]
+
+  category String @default("")
 }
 
 model Comment {
