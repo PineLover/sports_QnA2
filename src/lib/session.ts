@@ -8,9 +8,6 @@ export async function getCurrentUser() {
     if (session?.user?.email) {
         const user = prisma.user.findUnique({
             where: { email: session?.user?.email },
-            include: {
-                sports: true,
-            },
         });
 
         return user;
@@ -28,6 +25,7 @@ export async function getCurrentProfile() {
             where: { userId: user?.id },
             include: {
                 user: true,
+                sports: true,
             },
         });
 

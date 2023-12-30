@@ -16,7 +16,7 @@ const SearchBar = () => {
     };
 
     return (
-        <div>
+        <div className="max-w-xs">
             <form className="join">
                 <input
                     className="input input-bordered join-item"

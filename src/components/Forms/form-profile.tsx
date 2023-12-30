@@ -2,12 +2,21 @@
 import { ProfileFormData } from "@/types/profile";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import React, {
+    ChangeEvent,
+    FormEvent,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebae/config";
 import Image from "next/image";
+import { local_url } from "@/lib/url";
+import { Sports } from "@prisma/client";
+import { LocalStorageIds } from "@/lib/localStorageIds";
 
 const inputClass =
     "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-blue-300";
@@ -21,7 +30,11 @@ const FormProfile = () => {
         nickname: "",
         address: "",
         description: "",
+        sportsId: "",
     });
+
+    const [sports, setSports] = useState<Sports[]>([]);
+    const [selectedSportsId, setSelectedSportsId] = useState<string>("");
 
     const handleImage = async (e: any) => {
         // 내가 받을 파일은 하나기 때문에 index 0값의 이미지를 가짐
@@ -115,6 +128,8 @@ const FormProfile = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        console.log(`formData: ${formData}`);
+
         try {
             const response = await axios.post("/api/profile/edit", formData);
 
@@ -125,6 +140,18 @@ const FormProfile = () => {
             console.error(error);
         }
     };
+
+    const getSports = async () => {
+        try {
+            const response = await fetch(`${local_url}/api/sports`);
+            const result = await response.json();
+            setSports(result.sports);
+        } catch (error) {}
+    };
+
+    useEffect(() => {
+        getSports();
+    }, []);
 
     return (
         <div>
@@ -144,6 +171,34 @@ const FormProfile = () => {
                     <div className="space-x-2">
                         <input type="file" onChange={handleImage} />
                     </div>
+
+                    <div className="flex space-x-2 py-2">
+                        {sports.map((sport) =>
+                            selectedSportsId == sport.id ? (
+                                <div
+                                    key={sport.id}
+                                    className="btn btn-sm bg-red-200"
+                                >
+                                    {sport.name}
+                                </div>
+                            ) : (
+                                <div
+                                    key={sport.id}
+                                    className="btn btn-sm bg-Slate-50"
+                                    onClick={() => {
+                                        setSelectedSportsId(sport.id);
+                                        setFormData({
+                                            ...formData,
+                                            sportsId: sport.id,
+                                        });
+                                    }}
+                                >
+                                    {sport.name}
+                                </div>
+                            )
+                        )}
+                    </div>
+
                     <div className="">
                         <label>이름</label>
                         <input
@@ -189,6 +244,7 @@ const FormProfile = () => {
                             onChange={handleLink1Change}
                         />
                     </div>
+
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"

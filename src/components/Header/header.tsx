@@ -5,6 +5,8 @@ import { getCurrentUser } from "@/lib/session";
 import LogOutButton from "./LogOutButton";
 import { FcSportsMode } from "react-icons/fc";
 import { FcQuestions } from "react-icons/fc";
+import { FcBusinessman } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 import SearchBar from "./searchBar";
 
 const header = async () => {
@@ -18,7 +20,7 @@ const header = async () => {
                     href="/"
                     className="font-NotoSansKR text-black text-2xl font-normal"
                 >
-                    운동 고수들이 모인곳 - 운고
+                    sportsforlife
                 </Link>
                 <div className="grow"></div>
 
@@ -30,20 +32,13 @@ const header = async () => {
                             href="/question"
                             className="font-NotoSansKR text-black hover:underline"
                         >
-                            질문작성
-                        </Link>
-                    </div>
-                    <div className="flex items-center">
-                        <Link
-                            href="/blogs"
-                            className="font-NotoSansKR text-black hover:underline"
-                        >
-                            질문목록
+                            질문
                         </Link>
                     </div>
 
                     {user?.name ? (
-                        <div className="flex space-x-3 items-center">
+                        <div className="flex items-center">
+                            <FcBusinessman />
                             <Link
                                 href="/profile"
                                 className="text-black hover:underline"
@@ -54,6 +49,7 @@ const header = async () => {
                         </div>
                     ) : (
                         <div className="flex items-center">
+                            <FcGoogle />
                             <Link
                                 href="/api/auth/signin"
                                 className="text-black hover:underline"

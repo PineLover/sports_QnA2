@@ -1,27 +1,30 @@
-import React, { FC } from "react";
+"use client";
+import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
-import prisma from "@/lib/db";
 import dayjs from "dayjs";
 import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
+import { local_url } from "@/lib/url";
+import { LocalStorageIds } from "@/lib/localStorageIds";
+import { Posts } from "./AllBlogs";
 
-const MostLikedBlogs: FC<SportsSelectedPageProps> = async ({ params }) => {
-    const posts = await prisma.post.findMany({
-        take: 10,
-        where: {
-            title: {
-                contains: params.q,
-            },
-        },
-        orderBy: {
-            LikedPosts: {
-                _count: "desc",
-            },
-        },
-        include: {
-            author: true,
-            sports: true,
-        },
-    });
+const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
+    const [posts, setPosts] = useState<Posts[]>([]);
+
+    const getBlogs = async (sportsId: string) => {
+        try {
+            const response = await fetch(
+                `${local_url}/api/blogs/famous?q=${params.q}&sportsId=${sportsId}`
+            );
+            const result = await response.json();
+            setPosts(result.posts);
+        } catch (error) {}
+    };
+
+    useEffect(() => {
+        const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
+        console.log(id);
+        getBlogs(id);
+    }, []);
 
     return (
         <div className="">

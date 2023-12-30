@@ -18,11 +18,18 @@ export async function POST(req: Request) {
                 userId: user?.id,
             },
         });
-        const { profileImageUrl, link1, nickname, address, description } =
-            await req.json();
+
+        const {
+            profileImageUrl,
+            link1,
+            nickname,
+            address,
+            description,
+            sportsId,
+        } = await req.json();
 
         console.log(
-            `xxxxx ${profileImageUrl}, ${link1}, ${nickname}, ${address}, ${description}`
+            `profile - ${profileImageUrl}, ${link1}, ${nickname}, ${address}, ${description} ${sportsId}`
         );
 
         if (count == 0) {
@@ -33,6 +40,7 @@ export async function POST(req: Request) {
                     nickname,
                     address,
                     description,
+                    sportsId: sportsId,
                     userId: user?.id,
                 },
             });
@@ -48,6 +56,7 @@ export async function POST(req: Request) {
                     nickname,
                     address,
                     description,
+                    sportsId: sportsId,
                 },
             });
             return NextResponse.json({ res }, { status: 200 });

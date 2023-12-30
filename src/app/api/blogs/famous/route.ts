@@ -17,7 +17,9 @@ export async function GET(req: NextRequest) {
                     },
                 },
                 orderBy: {
-                    createdAt: "desc",
+                    LikedPosts: {
+                        _count: "desc",
+                    },
                 },
                 include: {
                     author: true,
@@ -34,7 +36,9 @@ export async function GET(req: NextRequest) {
                     sportsId: sportsId,
                 },
                 orderBy: {
-                    createdAt: "desc",
+                    LikedPosts: {
+                        _count: "desc",
+                    },
                 },
                 include: {
                     author: true,

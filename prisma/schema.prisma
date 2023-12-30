@@ -48,15 +48,15 @@ model User {
   posts         Post[]
   comments      Comment[]
 
-  sports   Sports? @relation(fields: [sportsId], references: [id])
-  sportsId String?
-
   LikedComments LikedComments[]
   LikedPosts    LikedPosts[]
 
   DisLikedComments DisLikedComments[]
   DisLikedPosts    DisLikedPosts[]
   Profile          Profile[]
+  
+  Sports           Sports?            @relation(fields: [sportsId], references: [id])
+  sportsId         String?
 }
 
 model VerificationToken {
@@ -77,6 +77,9 @@ model Profile {
   nickname        String
   address         String
   description     String
+
+  sports   Sports? @relation(fields: [sportsId], references: [id])
+  sportsId String?
 
   createdAt DateTime @default(now())
 }
@@ -115,11 +118,12 @@ model Comment {
 }
 
 model Sports {
-  id        String   @id @default("")
-  createdAt DateTime @default(now())
+  id        String    @id @default("")
+  createdAt DateTime  @default(now())
   name      String
   Post      Post[]
   User      User[]
+  Profile   Profile[]
 }
 
 model LikedPosts {
