@@ -32,19 +32,21 @@ const header = async () => {
                             href="/question"
                             className="font-NotoSansKR text-black hover:underline"
                         >
-                            질문하기
+                            글작성
                         </Link>
                     </div>
 
                     {user?.name ? (
-                        <div className="flex items-center">
-                            <FcBusinessman />
-                            <Link
-                                href="/profile"
-                                className="text-black hover:underline"
-                            >
-                                프로필
-                            </Link>
+                        <div className="flex space-x-5">
+                            <div className="flex items-center">
+                                <FcBusinessman />
+                                <Link
+                                    href="/profile"
+                                    className="text-black hover:underline"
+                                >
+                                    프로필
+                                </Link>
+                            </div>
                             <LogOutButton />
                         </div>
                     ) : (

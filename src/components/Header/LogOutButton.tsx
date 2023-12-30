@@ -6,7 +6,7 @@ const LogOutButton = () => {
     return (
         <button
             onClick={() => signOut()}
-            className="text-white hover:underline"
+            className="text-black hover:underline"
         >
             로그아웃
         </button>

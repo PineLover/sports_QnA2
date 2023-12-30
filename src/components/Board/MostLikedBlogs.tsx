@@ -37,11 +37,14 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                     <Link
                         key={post.id}
                         href={`/blogs/${post.id}`}
-                        className="bg-white p-4 rounded-md shadow"
+                        className="flex bg-white p-4 rounded-md shadow"
                     >
-                        <h2 className="text-xl font-bold">{post.title}</h2>
-                        <div className="flex-col text-xs">
+                        <div className="flex-col">
+                            <h2 className="text-xl font-bold">{post.title}</h2>
                             <div className="">종목: {post?.sports?.name}</div>
+                        </div>
+                        <div className="grow"></div>
+                        <div className="flex-col text-xs">
                             <p>질문자: {post.author?.name}</p>
                             <p>
                                 작성일:{" "}
