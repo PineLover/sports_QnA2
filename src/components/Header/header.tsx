@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import SignInButton from "./signInButton";
 import { getCurrentUser } from "@/lib/session";
 import LogOutButton from "./LogOutButton";
 import { FcSportsMode } from "react-icons/fc";
@@ -15,13 +14,14 @@ const header = async () => {
     return (
         <header className="bg-white p-4">
             <nav className="flex items-center px-5">
-                <FcSportsMode />
+                <FcSportsMode className="" />
                 <Link
                     href="/"
                     className="font-NotoSansKR text-black text-2xl font-normal"
                 >
                     sportsforlife
                 </Link>
+
                 <div className="grow"></div>
 
                 <ul className="flex space-x-5">
@@ -32,7 +32,7 @@ const header = async () => {
                             href="/question"
                             className="font-NotoSansKR text-black hover:underline"
                         >
-                            질문
+                            질문하기
                         </Link>
                     </div>
 

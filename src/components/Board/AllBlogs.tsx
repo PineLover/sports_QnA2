@@ -20,27 +20,33 @@ const AllBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
 
     const getBlogs = async (sportsId: string) => {
         try {
+            let q = params.q;
+
             const response = await fetch(
-                `${local_url}/api/blogs?q=${params.q}&sportsId=${sportsId}`
+                `${local_url}/api/blogs?q=${q}&sportsId=${sportsId}`
             );
             const result = await response.json();
+            console.log(result.posts);
             setPosts(result.posts);
         } catch (error) {}
     };
 
     useEffect(() => {
         const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
-        console.log(id);
+
         getBlogs(id);
     }, []);
 
     return (
         <div className="">
-            <hr className="mb-1" />
-            <h1 className="font-NotoSansKR text-lg mb-2 p-4 rounded">
+            <hr className="mb-3 mt-3" />
+            <Link
+                href="/blogs"
+                className="font-NotoSansKR text-lg mb-2 p-4 rounded mt-3"
+            >
                 전체 질문
-            </h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+            </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mt-3">
                 {posts.map((post) => (
                     <Link
                         key={post.id}

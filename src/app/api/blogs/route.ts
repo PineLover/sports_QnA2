@@ -8,6 +8,13 @@ export async function GET(req: NextRequest) {
         let sportsId = req.nextUrl.searchParams.get("sportsId");
         let posts = null;
 
+        console.log(`sportsId , q - ${sportsId}, ${q}`);
+
+        if (q == undefined) {
+            q = "";
+            console.log(`sportsId , q2 - ${sportsId}, ${q}`);
+        }
+
         if (sportsId == "all") {
             posts = await prisma.post.findMany({
                 take: 10,
