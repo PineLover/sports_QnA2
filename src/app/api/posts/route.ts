@@ -15,10 +15,6 @@ export async function POST(req: NextRequest) {
 
         let { title, content, sportsId } = await req.json();
 
-        if (sportsId == null) {
-            sportsId = "all";
-        }
-
         const newPost = await prisma.post.create({
             data: {
                 title,
