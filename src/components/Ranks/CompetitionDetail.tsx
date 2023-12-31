@@ -1,4 +1,5 @@
 "use client";
+import { rank_data_url } from "@/lib/url";
 import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 
@@ -33,7 +34,7 @@ const CompetitionDetail: FC<CompetitionDetailProps> = ({ sportsId, id }) => {
     const fetchData = async () => {
         try {
             const response = await fetch(
-                `${sportsId}/competition_detail_api/?id=${id}`
+                `${rank_data_url}${sportsId}/competition_detail_api/?id=${id}`
             );
             const result = await response.json();
             setRes(result);

@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import RankSearchBar from "./RankSearchBar";
+import { rank_data_url } from "@/lib/url";
 
 export interface WinResponse {
     q: string;
@@ -47,11 +48,13 @@ const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
 
     const getRanks = useCallback(async () => {
         try {
-            const response = await fetch(
-                `${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
-                    q
-                )}`
-            );
+            const url = `${rank_data_url}${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
+                q
+            )}`;
+            const response = await fetch(url);
+
+            console.log(url);
+
             const result = await response.json();
             setRes(result);
         } catch (error) {}
