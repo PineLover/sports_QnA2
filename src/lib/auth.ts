@@ -9,9 +9,17 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID ?? "",
             clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+            authorization: {
+                params: {
+                    response_type: "code",
+                    redirect_uri:
+                        "http:///www.sportsforlife.co.kr/api/auth/signin",
+                    scope: "https://www.googleapis.com/auth/signin",
+                },
+            },
         }),
     ],
-    secret: process.env.NEXTAUTH_SECRET
+    secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
