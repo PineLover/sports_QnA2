@@ -1,5 +1,4 @@
 import prisma from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -18,6 +17,8 @@ export async function GET(req: NextRequest) {
                 },
             },
         });
+
+        console.log(`api res: ${res}`);
 
         return NextResponse.json({ sports: res }, { status: 200 });
     } catch (error) {
