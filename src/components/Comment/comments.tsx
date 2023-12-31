@@ -1,7 +1,5 @@
 import prisma from "@/lib/db";
-import { format } from "date-fns/format";
 import React, { FC } from "react";
-import { ko } from "date-fns/locale";
 import dayjs from "dayjs";
 import LikeDisLikeComment from "./LikeDisLikeComment";
 
