@@ -230,6 +230,3 @@ const FormNewPost = () => {
 };
 
 export default FormNewPost;
-function uuidv4() {
-    throw new Error("Function not implemented.");
-}

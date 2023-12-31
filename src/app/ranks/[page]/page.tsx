@@ -13,8 +13,7 @@ export interface RanksPageProps {
 const RanksPage: FC<RanksPageProps> = ({ params }) => {
     return (
         <div className="p-8">
-            {/* <SquashRanks q={params.q} page={params.page} /> */}
-            <SquashRanks q={""} page={1} />
+            <SquashRanks q={""} page={params.page} />
         </div>
     );
 };

@@ -43,7 +43,7 @@ const CompetitionDetail: FC<CompetitionDetailProps> = ({ id }) => {
     useEffect(() => {
         console.log(id);
         fetchData();
-    });
+    }, []);
 
     return (
         <div className="space-y-2">
@@ -58,7 +58,9 @@ const CompetitionDetail: FC<CompetitionDetailProps> = ({ id }) => {
                     <div className="font-bold">주최: {res?.comp.host}</div>
                 </div>
             ) : (
-                <div>loading...</div>
+                <div>
+                    <span className="loading loading-dots loading-lg"></span>
+                </div>
             )}
             <div className="space-y-2">
                 {res?.winners.map((winner) => (
