@@ -10,14 +10,13 @@ export default async function Question() {
 
     return (
         <main className="w-3/4 mx-auto my-5">
-            <FormNewPost />
-            {/* {user ? (
+            {user ? (
                 <FormNewPost />
             ) : (
                 <div className="">
                     <LoginRequire />
                 </div>
-            )} */}
+            )}
         </main>
     );
 }
