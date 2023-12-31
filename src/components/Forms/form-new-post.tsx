@@ -19,7 +19,6 @@ import dynamic from "next/dynamic";
 import { v4 as uuid } from "uuid";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import { Sports } from "@prisma/client";
-import { local_url } from "@/lib/url";
 
 interface ForwardedQuillComponent extends ReactQuillProps {
     forwardedRef: React.Ref<ReactQuill>;
@@ -47,7 +46,7 @@ const FormNewPost = () => {
     const [sports, setSports] = useState<Sports[]>([]);
     const getSports = async () => {
         try {
-            const response = await fetch(`${local_url}/api/sports`);
+            const response = await fetch(`${process.env.local_url}/api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}

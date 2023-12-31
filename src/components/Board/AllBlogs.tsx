@@ -5,7 +5,6 @@ import prisma from "@/lib/db";
 import dayjs from "dayjs";
 import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
 import { Prisma } from "@prisma/client";
-import { local_url } from "@/lib/url";
 import { LocalStorageIds } from "@/lib/localStorageIds";
 
 export type Posts = Prisma.PostGetPayload<{
@@ -23,7 +22,7 @@ const AllBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
             let q = params.q;
 
             const response = await fetch(
-                `${local_url}/api/blogs?q=${q}&sportsId=${sportsId}`
+                `${process.env.local_url}/api/blogs?q=${q}&sportsId=${sportsId}`
             );
             const result = await response.json();
             console.log(result.posts);

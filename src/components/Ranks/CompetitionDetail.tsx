@@ -1,5 +1,4 @@
 "use client";
-import { rank_history_url } from "@/lib/url";
 import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 
@@ -34,7 +33,7 @@ const CompetitionDetail: FC<CompetitionDetailProps> = ({ sportsId, id }) => {
     const fetchData = async () => {
         try {
             const response = await fetch(
-                `${rank_history_url}${sportsId}/competition_detail_api/?id=${id}`
+                `${process.env.local_url}/${sportsId}/competition_detail_api/?id=${id}`
             );
             const result = await response.json();
             setRes(result);

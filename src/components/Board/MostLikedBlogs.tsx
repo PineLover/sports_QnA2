@@ -3,7 +3,6 @@ import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import dayjs from "dayjs";
 import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
-import { local_url } from "@/lib/url";
 import { LocalStorageIds } from "@/lib/localStorageIds";
 import { Posts } from "./AllBlogs";
 
@@ -13,7 +12,7 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
     const getBlogs = async (sportsId: string) => {
         try {
             const response = await fetch(
-                `${local_url}/api/blogs/famous?q=${params.q}&sportsId=${sportsId}`
+                `${process.env.local_url}/api/blogs/famous?q=${params.q}&sportsId=${sportsId}`
             );
             const result = await response.json();
             setPosts(result.posts);

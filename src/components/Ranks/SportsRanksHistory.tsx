@@ -1,5 +1,4 @@
 "use client";
-import { rank_history_url } from "@/lib/url";
 import Link from "next/link";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -49,7 +48,7 @@ const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
     const getRanks = useCallback(async () => {
         try {
             const response = await fetch(
-                `${rank_history_url}${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
+                `${process.env.local_url}/${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
                     q
                 )}`
             );

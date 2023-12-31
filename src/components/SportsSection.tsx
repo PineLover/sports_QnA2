@@ -1,6 +1,5 @@
 "use client";
 import { LocalStorageIds } from "@/lib/localStorageIds";
-import { local_url } from "@/lib/url";
 import { Prisma } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 
@@ -20,7 +19,7 @@ const SportsSection = () => {
 
     const getSports = async () => {
         try {
-            const response = await fetch(`${local_url}/api/sports`);
+            const response = await fetch(`${process.env.local_url}/api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}

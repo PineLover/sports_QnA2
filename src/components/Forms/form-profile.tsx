@@ -14,7 +14,6 @@ import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebae/config";
 import Image from "next/image";
-import { local_url } from "@/lib/url";
 import { Sports } from "@prisma/client";
 import { LocalStorageIds } from "@/lib/localStorageIds";
 
@@ -143,7 +142,7 @@ const FormProfile = () => {
 
     const getSports = async () => {
         try {
-            const response = await fetch(`${local_url}/api/sports`);
+            const response = await fetch(`${process.env.local_url}/api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}
