@@ -3,6 +3,7 @@ import { competition_squash_url } from "@/lib/url";
 import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
+import RankSearchBar from "./RankSearchBar";
 
 export interface WinResponse {
     q: string;
@@ -43,7 +44,9 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
     const getRanks = async () => {
         try {
             const response = await fetch(
-                `${competition_squash_url}/individual_history_list_api/?page=${cur_page}`
+                `${competition_squash_url}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
+                    q
+                )}`
             );
             const result = await response.json();
             setRes(result);
@@ -74,7 +77,7 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
     };
 
     return (
-        <div>
+        <div className="space-y-2">
             <div className="flex items-center space-x-2">
                 <div>{cur_page} 페이지</div>
                 <div className="btn btn-sm" onClick={onClickPrev}>
@@ -83,8 +86,10 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
                 <div className="btn btn-sm" onClick={onClickUp}>
                     이후
                 </div>
+                <RankSearchBar />
             </div>
-            {q ? <div>검색어 - {q}</div> : <div></div>}
+
+            {q ? <div>검색어 - {decodeURIComponent(q)}</div> : <div></div>}
 
             <div className="space-y-3">
                 {res ? (
@@ -94,13 +99,13 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
                         <span className="loading loading-dots loading-lg"></span>
                     </div>
                 )}
-                {res?.win_datas.map((winner) => (
-                    <div key={uuid()} className="flex-col">
+                {res?.win_datas.map((winner, index) => (
+                    <div key={index} className="flex-col">
                         <div className="font-bold">{winner.name}</div>
                         {winner.summary} - {winner.win_list.length}개
                         <div>
-                            {winner.win_list.map((elem) => (
-                                <div key={uuid()} className="flex-col">
+                            {winner.win_list.map((elem, index2) => (
+                                <div key={index2} className="flex-col">
                                     <Link
                                         href={`/ranks/competition/${elem.competition.id}`}
                                     >

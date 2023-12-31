@@ -1,8 +1,8 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
 import Link from "next/link";
+import React, { ChangeEvent, useState } from "react";
 
-const SearchBar = () => {
+const RankSearchBar = () => {
     const [query, setQuery] = useState<string>("");
 
     const handleQueryChange = (
@@ -11,6 +11,8 @@ const SearchBar = () => {
         e.preventDefault();
         const elem = e.target as HTMLInputElement;
 
+        const queryEncode = encodeURIComponent(elem.value);
+        console.log(`q queryEncode: ${queryEncode}`);
         console.log(`q input: ${elem.value}`);
         setQuery(elem.value);
     };
@@ -21,12 +23,12 @@ const SearchBar = () => {
                 <input
                     className="input input-bordered join-item"
                     type="text"
-                    placeholder="글 검색"
+                    placeholder="선수 이름 검색"
                     onChange={handleQueryChange}
                 />
                 <Link
                     className="btn join-item rounded-r-full"
-                    href={`/blogs/query/${query}`}
+                    href={`/ranks/1/${query}`}
                 >
                     검색
                 </Link>
@@ -35,4 +37,4 @@ const SearchBar = () => {
     );
 };
 
-export default SearchBar;
+export default RankSearchBar;
