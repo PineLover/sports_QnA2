@@ -33,7 +33,7 @@ const CompetitionDetail: FC<CompetitionDetailProps> = ({ sportsId, id }) => {
     const fetchData = async () => {
         try {
             const response = await fetch(
-                `${process.env.local_url}/${sportsId}/competition_detail_api/?id=${id}`
+                `${process.env.local_url}${sportsId}/competition_detail_api/?id=${id}`
             );
             const result = await response.json();
             setRes(result);

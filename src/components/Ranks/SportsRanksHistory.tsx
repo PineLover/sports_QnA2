@@ -48,7 +48,9 @@ const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
     const getRanks = useCallback(async () => {
         try {
             const response = await fetch(
-                `${process.env.local_url}/${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
+                `${
+                    process.env.local_url
+                }${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
                     q
                 )}`
             );
