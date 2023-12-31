@@ -30,7 +30,11 @@ const AllBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
     };
 
     useEffect(() => {
-        const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
+        let id = localStorage.getItem(LocalStorageIds.sportsId) as string;
+
+        if (id == null) {
+            id = "all";
+        }
 
         getBlogs(id);
     }, []);
