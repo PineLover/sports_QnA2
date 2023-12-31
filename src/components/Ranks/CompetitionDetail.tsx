@@ -67,17 +67,23 @@ const CompetitionDetail: FC<CompetitionDetailProps> = ({ id }) => {
                     <div key={winner.division} className="flex flex-col">
                         <div className="font-bold">{winner.division}</div>
                         {winner[1] ? (
-                            winner[1].map((elem) => <div>1위 - {elem}</div>)
+                            winner[1].map((elem, index) => (
+                                <div key={index}>1위 - {elem}</div>
+                            ))
                         ) : (
                             <div></div>
                         )}
                         {winner[2] ? (
-                            winner[2].map((elem) => <div>2위 - {elem}</div>)
+                            winner[2].map((elem, index) => (
+                                <div key={index}>2위 - {elem}</div>
+                            ))
                         ) : (
                             <div></div>
                         )}
                         {winner[3] ? (
-                            winner[3].map((elem) => <div>3위 - {elem}</div>)
+                            winner[3].map((elem, index) => (
+                                <div key={index}>3위 - {elem}</div>
+                            ))
                         ) : (
                             <div></div>
                         )}
