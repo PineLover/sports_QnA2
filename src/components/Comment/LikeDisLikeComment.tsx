@@ -16,7 +16,7 @@ const LikeDisLikeComment: FC<LikeCommentProps> = ({ comment_id }) => {
     const getLikeCount = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/comments/getLikeCount?comment_id=${comment_id}`
+                `api/comments/getLikeCount?comment_id=${comment_id}`
             );
             const result = await response.json();
 
@@ -27,7 +27,7 @@ const LikeDisLikeComment: FC<LikeCommentProps> = ({ comment_id }) => {
     const getDisLikeCount = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/comments/getDisLikeCount?comment_id=${comment_id}`
+                `api/comments/getDisLikeCount?comment_id=${comment_id}`
             );
             const result = await response.json();
             setDisLikedCount(result.disLikedCount);

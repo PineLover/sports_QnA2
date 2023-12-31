@@ -16,7 +16,7 @@ const LikeDisLikePost: FC<LikePostsProps> = ({ postId }) => {
     const getLikeCount = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/posts/getLikeCount?post_id=${postId}`
+                `api/posts/getLikeCount?post_id=${postId}`
             );
             const result = await response.json();
 
@@ -27,7 +27,7 @@ const LikeDisLikePost: FC<LikePostsProps> = ({ postId }) => {
     const getDisLikeCount = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/posts/getDisLikeCount?post_id=${postId}`
+                `api/posts/getDisLikeCount?post_id=${postId}`
             );
             const result = await response.json();
 
@@ -63,7 +63,7 @@ const LikeDisLikePost: FC<LikePostsProps> = ({ postId }) => {
         getLikeCount();
         getDisLikeCount();
     }, []);
-    
+
     return (
         <div className="flex justify-center space-x-6">
             <div className="btn" onClick={LikeAction}>
