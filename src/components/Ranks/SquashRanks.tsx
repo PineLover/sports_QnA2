@@ -1,7 +1,7 @@
 "use client";
 import { competition_squash_url } from "@/lib/url";
 import Link from "next/link";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import RankSearchBar from "./RankSearchBar";
 
@@ -41,7 +41,7 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
     let [cur_page, setPage] = useState<number>(1);
     let [res, setRes] = useState<WinResponse>();
 
-    const getRanks = async () => {
+    const getRanks = useCallback(async () => {
         try {
             const response = await fetch(
                 `${competition_squash_url}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
@@ -51,7 +51,7 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
             const result = await response.json();
             setRes(result);
         } catch (error) {}
-    };
+    }, []);
 
     useEffect(() => {
         setPage(page);
