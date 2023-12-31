@@ -6,6 +6,7 @@ import { FcSportsMode } from "react-icons/fc";
 import { FcQuestions } from "react-icons/fc";
 import { FcBusinessman } from "react-icons/fc";
 import { FcGoogle } from "react-icons/fc";
+import { FcNumericalSorting12 } from "react-icons/fc";
 import SearchBar from "./searchBar";
 
 const header = async () => {
@@ -26,6 +27,17 @@ const header = async () => {
 
                 <ul className="flex space-x-5">
                     <SearchBar />
+
+                    <div className="flex items-center">
+                        <FcNumericalSorting12 />
+                        <Link
+                            href="/ranks"
+                            className="font-NotoSansKR text-black hover:underline"
+                        >
+                            대회결과
+                        </Link>
+                    </div>
+
                     <div className="flex items-center">
                         <FcQuestions />
                         <Link
@@ -47,7 +59,9 @@ const header = async () => {
                                     프로필
                                 </Link>
                             </div>
-                            <LogOutButton />
+                            <div className="flex items-center">
+                                <LogOutButton />
+                            </div>
                         </div>
                     ) : (
                         <div className="flex items-center">
