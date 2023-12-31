@@ -13,7 +13,11 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const { title, content, sportsId } = await req.json();
+        let { title, content, sportsId } = await req.json();
+
+        if (sportsId == null) {
+            sportsId = "all";
+        }
 
         const newPost = await prisma.post.create({
             data: {
