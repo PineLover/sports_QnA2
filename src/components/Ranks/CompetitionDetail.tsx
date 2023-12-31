@@ -1,5 +1,5 @@
 "use client";
-import { competition_squash_url } from "@/lib/url";
+import { rank_history_url } from "@/lib/url";
 import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 
@@ -24,16 +24,17 @@ interface WinnerData {
 }
 
 export interface CompetitionDetailProps {
+    sportsId: string;
     id: string;
 }
 
-const CompetitionDetail: FC<CompetitionDetailProps> = ({ id }) => {
+const CompetitionDetail: FC<CompetitionDetailProps> = ({ sportsId, id }) => {
     const [res, setRes] = useState<CompetitionResponse>();
 
     const fetchData = async () => {
         try {
             const response = await fetch(
-                `${competition_squash_url}/competition_detail_api/?id=${id}`
+                `${rank_history_url}${sportsId}/competition_detail_api/?id=${id}`
             );
             const result = await response.json();
             setRes(result);

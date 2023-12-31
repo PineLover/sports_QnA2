@@ -1,4 +1,3 @@
-import SelectSportsRank from "@/components/Ranks/SelectSportsRank";
 import SportsRanksHistory from "@/components/Ranks/SportsRanksHistory";
 import SportsSection from "@/components/SportsSection";
 import { Prisma } from "@prisma/client";
@@ -6,6 +5,7 @@ import { FC } from "react";
 
 export interface RanksPageProps {
     params: {
+        sportsId: string;
         q: string;
         page: number;
     };
@@ -14,7 +14,11 @@ export interface RanksPageProps {
 const RanksPage: FC<RanksPageProps> = ({ params }) => {
     return (
         <div className="p-8">
-            <SelectSportsRank />
+            <SportsRanksHistory
+                sportsId={params.sportsId}
+                q={""}
+                page={params.page}
+            />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 "use client";
-import { competition_squash_url } from "@/lib/url";
+import { rank_history_url } from "@/lib/url";
 import Link from "next/link";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -32,19 +32,24 @@ export interface Competition {
     host: string;
 }
 
-export interface SquashRanksProps {
-    q: string;
+export interface SportsRanksHistoryProps {
+    sportsId: string;
     page: number;
+    q: string;
 }
 
-const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
+const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
+    sportsId,
+    q,
+    page,
+}) => {
     let [cur_page, setPage] = useState<number>(1);
     let [res, setRes] = useState<WinResponse>();
 
     const getRanks = useCallback(async () => {
         try {
             const response = await fetch(
-                `${competition_squash_url}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
+                `${rank_history_url}${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
                     q
                 )}`
             );
@@ -107,7 +112,7 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
                             {winner.win_list.map((elem, index2) => (
                                 <div key={index2} className="flex-col">
                                     <Link
-                                        href={`/ranks/competition/${elem.competition.id}`}
+                                        href={`/ranks/${sportsId}/competition/${elem.competition.id}`}
                                     >
                                         {elem.competition.competition_name}
                                     </Link>
@@ -122,4 +127,4 @@ const SquashRanks: FC<SquashRanksProps> = ({ q, page }) => {
     );
 };
 
-export default SquashRanks;
+export default SportsRanksHistory;

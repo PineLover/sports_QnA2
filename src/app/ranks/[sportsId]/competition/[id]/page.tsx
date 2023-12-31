@@ -5,6 +5,7 @@ import { FC } from "react";
 
 export interface CompetitionDetailPageProps {
     params: {
+        sportsId: string;
         id: string;
     };
 }
@@ -12,7 +13,7 @@ export interface CompetitionDetailPageProps {
 const CompetitionDetailPage: FC<CompetitionDetailPageProps> = ({ params }) => {
     return (
         <div className="p-8">
-            <CompetitionDetail id={params.id} />
+            <CompetitionDetail id={params.id} sportsId={params.sportsId} />
         </div>
     );
 };
