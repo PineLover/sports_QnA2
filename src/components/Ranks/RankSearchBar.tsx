@@ -12,8 +12,6 @@ const RankSearchBar = () => {
         const elem = e.target as HTMLInputElement;
 
         const queryEncode = encodeURIComponent(elem.value);
-        console.log(`q queryEncode: ${queryEncode}`);
-        console.log(`q input: ${elem.value}`);
         setQuery(elem.value);
     };
 

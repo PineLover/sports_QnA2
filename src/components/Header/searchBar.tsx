@@ -11,7 +11,6 @@ const SearchBar = () => {
         e.preventDefault();
         const elem = e.target as HTMLInputElement;
 
-        console.log(`q input: ${elem.value}`);
         setQuery(elem.value);
     };
 

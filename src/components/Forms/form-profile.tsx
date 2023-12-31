@@ -127,8 +127,6 @@ const FormProfile = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(`formData: ${formData}`);
-
         try {
             const response = await axios.post("/api/profile/edit", formData);
 
@@ -142,7 +140,7 @@ const FormProfile = () => {
 
     const getSports = async () => {
         try {
-            const response = await fetch(`${process.env.local_url}api/sports`);
+            const response = await fetch(`api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}

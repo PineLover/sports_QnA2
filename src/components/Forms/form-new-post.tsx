@@ -46,7 +46,7 @@ const FormNewPost = () => {
     const [sports, setSports] = useState<Sports[]>([]);
     const getSports = async () => {
         try {
-            const response = await fetch(`${process.env.local_url}api/sports`);
+            const response = await fetch(`api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}
@@ -181,7 +181,6 @@ const FormNewPost = () => {
                             aria-label={sport.name}
                             value={sport.id}
                             onChange={(e) => {
-                                console.log(sport.id);
                                 setFormData({
                                     ...formData,
                                     sportsId: sport.id,

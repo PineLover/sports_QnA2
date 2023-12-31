@@ -22,10 +22,9 @@ const AllBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
             let q = params.q;
 
             const response = await fetch(
-                `${process.env.local_url}api/blogs?q=${q}&sportsId=${sportsId}`
+                `api/blogs?q=${q}&sportsId=${sportsId}`
             );
             const result = await response.json();
-            console.log(result.posts);
             setPosts(result.posts);
         } catch (error) {}
     };

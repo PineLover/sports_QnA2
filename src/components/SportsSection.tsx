@@ -19,7 +19,7 @@ const SportsSection = () => {
 
     const getSports = async () => {
         try {
-            const response = await fetch(`${process.env.local_url}api/sports`);
+            const response = await fetch(`api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}
@@ -28,8 +28,6 @@ const SportsSection = () => {
     useEffect(() => {
         const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
         setSelectedSportsId(id);
-
-        console.log(id);
 
         getSports();
     }, []);

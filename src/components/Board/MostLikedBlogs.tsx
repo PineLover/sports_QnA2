@@ -12,7 +12,7 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
     const getBlogs = async (sportsId: string) => {
         try {
             const response = await fetch(
-                `${process.env.local_url}api/blogs/famous?q=${params.q}&sportsId=${sportsId}`
+                `api/blogs/famous?q=${params.q}&sportsId=${sportsId}`
             );
             const result = await response.json();
             setPosts(result.posts);
@@ -21,7 +21,6 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
 
     useEffect(() => {
         const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
-        console.log(id);
         getBlogs(id);
     }, []);
 
