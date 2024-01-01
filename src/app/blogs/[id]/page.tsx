@@ -54,7 +54,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
                         <div></div>
                     )}
                     <div className="">종목: {post?.sports?.name}</div>
-                    <div className="">질문자: {post?.author?.name}</div>
+                    {/* <div className="">질문자: {post?.author?.name}</div> */}
                     <div className="">
                         작성일:{" "}
                         {dayjs(post?.createdAt).format("YYYY.MM.DD hh:m")}

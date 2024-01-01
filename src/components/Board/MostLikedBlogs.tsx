@@ -43,13 +43,11 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                         className="flex bg-white p-4 rounded-md shadow"
                     >
                         <div className="flex-col w-full">
-                            <h2 className="text-xl font-bold ">
-                                {post.title}
-                            </h2>
+                            <h2 className="text-xl font-bold ">{post.title}</h2>
                             <div className="flex w-full">
-                                <div className="text-xs">
+                                {/* <div className="text-xs">
                                     {post?.sports?.name}
-                                </div>
+                                </div> */}
                                 <div className="grow"></div>
                                 <div className="text-xs flex space-x-2">
                                     <p>by: {post.author?.name}</p>
