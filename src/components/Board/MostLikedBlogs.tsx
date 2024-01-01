@@ -21,6 +21,11 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
 
     useEffect(() => {
         const id = localStorage.getItem(LocalStorageIds.sportsId) as string;
+
+        if (id == null) {
+            localStorage.setItem(LocalStorageIds.sportsId, "all");
+        }
+
         getBlogs(id);
     }, []);
 
