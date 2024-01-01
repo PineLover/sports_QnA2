@@ -62,10 +62,10 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
 
     const [formData, setFormData] = useState<FormEditData>({
         id: post.id,
-        title: "",
-        content: "",
+        title: post?.title,
+        content: post?.content,
         sportsId: "",
-        imgUrl: "",
+        imgUrl: post?.imgUrl,
     });
 
     const getSports = async () => {
