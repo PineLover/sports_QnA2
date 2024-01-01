@@ -59,6 +59,9 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                                     <p>조회{post.viewCount ?? 0}회</p>
                                 </div>
                             </div>
+                            <div className="w-24 rounded">
+                                <img src={decodeURIComponent(post.imgUrl)} />
+                            </div>
                         </div>
                     </Link>
                 ))}

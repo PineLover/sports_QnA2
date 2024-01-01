@@ -13,19 +13,21 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        let { title, content, sportsId } = await req.json();
+        let { title, content, sportsId, imgUrl } = await req.json();
 
         const newPost = await prisma.post.create({
             data: {
                 title,
                 content,
-                sportsId: sportsId,
+                imgUrl: imgUrl,
                 authorEmail: user.email,
+                sportsId: sportsId,
             },
         });
 
         return NextResponse.json({ newPost }, { status: 200 });
     } catch (error) {
+        console.log(error);
         return NextResponse.json(
             { message: "Something went wrong!" },
             { status: 500 }

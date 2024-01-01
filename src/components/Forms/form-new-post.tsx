@@ -44,6 +44,8 @@ const FormNewPost = () => {
     const [error, setError] = useState<Error | null>(null);
 
     const [sports, setSports] = useState<Sports[]>([]);
+    const [imgUrl, setImgUrl] = useState<string>("");
+
     const getSports = async () => {
         try {
             const response = await fetch(`/api/sports`);
@@ -59,7 +61,9 @@ const FormNewPost = () => {
         title: "",
         content: "",
         sportsId: "",
+        imgUrl: "",
     });
+
     const { data } = useSession();
     const router = useRouter();
 
@@ -83,7 +87,12 @@ const FormNewPost = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(e);
+
+        setFormData({
+            ...formData,
+            imgUrl: encodeURIComponent(imgUrl),
+        });
+
         try {
             const response = await axios.post("/api/posts", formData);
 
@@ -114,7 +123,9 @@ const FormNewPost = () => {
                         storage,
                         `posts/${fileId}.${formatFile}`
                     );
+
                     const uploadTask = uploadBytesResumable(storeageRef, file);
+
                     uploadTask.on(
                         "state_changed",
                         (snapshot) => {
@@ -135,6 +146,9 @@ const FormNewPost = () => {
                                         "image",
                                         downloadURL
                                     );
+
+                                    console.log(downloadURL);
+                                    setImgUrl(downloadURL);
 
                                     editor.setSelection(range.index, 1);
                                 }
