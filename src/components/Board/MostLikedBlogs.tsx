@@ -45,7 +45,6 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                         <div className="flex-col w-full">
                             <h2 className="text-xl font-bold ">
                                 {post.title}
-                                dfasdfasdfasdfasfddfasdfasdfasdfasfddfasdfasdfasdfasfd
                             </h2>
                             <div className="flex w-full">
                                 <div className="text-xs">
