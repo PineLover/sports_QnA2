@@ -140,7 +140,7 @@ const FormProfile = () => {
 
     const getSports = async () => {
         try {
-            const response = await fetch(`api/sports`);
+            const response = await fetch(`/api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}
