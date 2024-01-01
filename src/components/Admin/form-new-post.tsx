@@ -20,6 +20,13 @@ import { v4 as uuid } from "uuid";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import { Sports } from "@prisma/client";
 
+interface AdminFormData {
+    title: string;
+    author: string;
+    content: string;
+    sportsId: string;
+}
+
 interface ForwardedQuillComponent extends ReactQuillProps {
     forwardedRef: React.Ref<ReactQuill>;
 }
@@ -36,9 +43,9 @@ const QuillNoSSRWrapper = dynamic(
 );
 
 const inputClass =
-    "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-blue-300";
+    "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-red-300";
 
-const FormNewPost = () => {
+const AdminFormNewPost = () => {
     const quillRef = useRef<ReactQuill | null>(null);
     const [progress, setProgress] = useState<number>(0);
     const [error, setError] = useState<Error | null>(null);
@@ -55,11 +62,13 @@ const FormNewPost = () => {
         getSports();
     }, []);
 
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<AdminFormData>({
         title: "",
+        author: "",
         content: "",
         sportsId: "",
     });
+
     const { data } = useSession();
     const router = useRouter();
 
@@ -81,11 +90,22 @@ const FormNewPost = () => {
         });
     };
 
+    const handleAuthorChange = (
+        e: ChangeEvent<HTMLTextAreaElement | HTMLElement>
+    ) => {
+        e.preventDefault();
+        const elem = e.target as HTMLInputElement;
+        setFormData({
+            ...formData,
+            author: elem.value,
+        });
+    };
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(e);
         try {
-            const response = await axios.post("api/posts", formData);
+            const response = await axios.post("api/admin/posts", formData);
 
             if (response.status === 200) {
                 router.push(`/blogs/${response.data.newPost.id}`);
@@ -202,6 +222,19 @@ const FormNewPost = () => {
                     required
                 />
             </div>
+
+            {/* <div className="mb-4">
+                <input
+                    type="text"
+                    className={inputClass}
+                    placeholder="작성자 이름 입력"
+                    name="title"
+                    value={formData.author}
+                    onChange={handleAuthorChange}
+                    required
+                />
+            </div> */}
+
             <div className="mb-4" style={{ height: "500px" }}>
                 <QuillNoSSRWrapper
                     modules={custom_quill_modules}
@@ -227,4 +260,4 @@ const FormNewPost = () => {
     );
 };
 
-export default FormNewPost;
+export default AdminFormNewPost;
