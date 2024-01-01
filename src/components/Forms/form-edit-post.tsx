@@ -59,7 +59,7 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
 
     const getSports = async () => {
         try {
-            const response = await fetch(`api/sports`);
+            const response = await fetch(`/api/sports`);
             const result = await response.json();
             setSports(result.sports);
         } catch (error) {}
@@ -171,7 +171,7 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
                     [{ size: [] }],
                     ["bold", "italic", "underline", "strike", "blockquote"],
                     [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
-                    ["image"],
+                    ["link", "image"],
                 ],
                 handlers: { image: imageHandler },
             },

@@ -7,5 +7,6 @@ export const quill_formats = [
     "strike",
     "blockquote",
     "align",
+    "link",
     "image",
 ];

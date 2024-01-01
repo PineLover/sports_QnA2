@@ -156,7 +156,7 @@ const FormNewPost = () => {
                     [{ size: [] }],
                     ["bold", "italic", "underline", "strike", "blockquote"],
                     [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
-                    ["image"],
+                    ["link", "image"],
                 ],
                 handlers: { image: imageHandler },
             },
