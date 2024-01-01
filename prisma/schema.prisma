@@ -93,7 +93,7 @@ model Post {
   id          String    @id @default(cuid())
   title       String
   content     String
-  imgUrl      String
+  imgUrl      String    @default("")
   author      User?     @relation(fields: [authorEmail], references: [email])
   authorEmail String?
   createdAt   DateTime  @default(now())
