@@ -147,7 +147,6 @@ const FormNewPost = () => {
                                         downloadURL
                                     );
 
-                                    console.log(downloadURL);
                                     setImgUrl(downloadURL);
 
                                     editor.setSelection(range.index, 1);

@@ -49,6 +49,7 @@ export interface FormEditData {
     title: string;
     content: string;
     sportsId: string;
+    imgUrl: string;
 }
 
 const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
@@ -57,12 +58,14 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
     const [error, setError] = useState<Error | null>(null);
 
     const [sports, setSports] = useState<Sports[]>([]);
+    const [imgUrl, setImgUrl] = useState<string>("");
 
     const [formData, setFormData] = useState<FormEditData>({
         id: post.id,
         title: "",
         content: "",
         sportsId: "",
+        imgUrl: "",
     });
 
     const getSports = async () => {
@@ -106,7 +109,12 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(e);
+
+        setFormData({
+            ...formData,
+            imgUrl: encodeURIComponent(imgUrl),
+        });
+
         try {
             const response = await axios.post("/api/posts/edit", formData);
 
@@ -158,6 +166,7 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
                                         "image",
                                         downloadURL
                                     );
+                                    setImgUrl(downloadURL);
 
                                     editor.setSelection(range.index, 1);
                                 }

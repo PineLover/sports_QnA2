@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        let { id, title, content, sportsId } = await req.json();
+        let { id, title, content, sportsId, imgUrl } = await req.json();
 
         const newPost = await prisma.post.update({
             where: {
@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
             data: {
                 title,
                 content,
+                imgUrl: imgUrl,
                 sportsId: sportsId,
                 authorEmail: user.email,
             },
