@@ -15,7 +15,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebae/config";
 import Image from "next/image";
 import { Sports } from "@prisma/client";
-import { LocalStorageIds } from "@/lib/localStorageIds";
 
 const inputClass =
     "w-full py-2 px-3 border border-gray-300 rounded-md focus: outline-none focus:ring focus:border-blue-300";

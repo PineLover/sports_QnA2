@@ -25,7 +25,7 @@ export async function POST(req: Request) {
             nickname,
             address,
             description,
-            sportsId,
+            sportsId: sportsId,
         } = await req.json();
 
         console.log(
