@@ -44,16 +44,13 @@ const MostLikedBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                     >
                         <div className="flex-col">
                             <h2 className="text-xl font-bold">{post.title}</h2>
-                            <div className="">종목: {post?.sports?.name}</div>
+                            <div className="text-sm">{post?.sports?.name}</div>
                         </div>
                         <div className="grow"></div>
                         <div className="flex-col text-xs">
-                            <p>질문자: {post.author?.name}</p>
-                            <p>
-                                작성일:{" "}
-                                {dayjs(post.createdAt).format("YYYY-MM-DD")}
-                            </p>
-                            <p>조회수: {post.viewCount ?? 0}회</p>
+                            <p>by: {post.author?.name}</p>
+                            <p>{dayjs(post.createdAt).format("YYYY.MM.DD")}</p>
+                            <p>조회 {post.viewCount ?? 0}회</p>
                         </div>
                     </Link>
                 ))}
