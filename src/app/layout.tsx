@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/header";
 import Providers from "@/components/Providers";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="kr">
+            <Script src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID" />
+            <Script id="google-analytics">
+                {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+    
+            gtag('config', 'G-KYBD2P8KTB');
+        `}
+            </Script>
             <body className={inter.className}>
                 <Providers>
                     <Header />

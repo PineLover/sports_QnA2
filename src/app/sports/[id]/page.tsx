@@ -14,13 +14,13 @@ const SportsPage: FC<SportsSelectedPageProps> = async ({ params }) => {
     return (
         <main className="p-8 space-y-5">
             <SportsSection />
-            <AllBlogs
+            <MostLikedBlogs
                 params={{
                     id: params.id,
                     q: params.q,
                 }}
             />
-            <MostLikedBlogs
+            <AllBlogs
                 params={{
                     id: params.id,
                     q: params.q,

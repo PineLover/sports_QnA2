@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
         if (sportsId == "all" || sportsId == null) {
             posts = await prisma.post.findMany({
-                take: 10,
+                take: 100,
                 where: {
                     title: {
                         contains: `${q}`,

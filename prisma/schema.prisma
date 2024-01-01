@@ -107,6 +107,9 @@ model Post {
   DisLikedPosts DisLikedPosts[]
 
   category String @default("")
+
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String?
 }
 
 model Comment {
@@ -131,6 +134,14 @@ model Sports {
   Post      Post[]
   User      User[]
   Profile   Profile[]
+}
+
+model SubCategory {
+  id          String   @id @default("")
+  createdAt   DateTime @default(now())
+  name        String
+  description String   @default("")
+  Post        Post[]
 }
 
 model LikedPosts {
