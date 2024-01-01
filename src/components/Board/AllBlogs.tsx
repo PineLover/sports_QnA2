@@ -56,10 +56,7 @@ const AllBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                         className="flex bg-white p-4 rounded-md shadow"
                     >
                         <div className="flex-col w-full">
-                            <h2 className="text-xl font-bold ">
-                                {post.title}
-                                dfasdfasdfasdfasfddfasdfasdfasdfasfddfasdfasdfasdfasfd
-                            </h2>
+                            <h2 className="text-xl font-bold ">{post.title}</h2>
                             <div className="flex w-full">
                                 <div className="text-xs">
                                     {post?.sports?.name}
