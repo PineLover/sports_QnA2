@@ -46,8 +46,9 @@ const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
     let [cur_page, setPage] = useState<number>(1);
     let [res, setRes] = useState<WinResponse>();
 
-    const getRanks = useCallback(async () => {
+    const getRanks = async () => {
         try {
+            console.log(`getRanks: ${cur_page}`);
             const url = `${rank_data_url}${sportsId}/individual_history_list_api/?page=${cur_page}&q=${decodeURIComponent(
                 q
             )}`;
@@ -58,19 +59,20 @@ const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
             const result = await response.json();
             setRes(result);
         } catch (error) {}
-    }, []);
+    };
 
     useEffect(() => {
-        setPage(page);
+        console.log(cur_page);
+        // setPage(page);
         getRanks();
-    }, []);
+    }, [cur_page]);
 
     const onClickPrev = () => {
         if (cur_page) {
             if (cur_page > 1) {
                 setRes(undefined);
                 setPage(cur_page - 1);
-                getRanks();
+                // getRanks();
             }
         }
     };
@@ -79,7 +81,7 @@ const SportsRanksHistory: FC<SportsRanksHistoryProps> = ({
         if (cur_page) {
             setRes(undefined);
             setPage(cur_page + 1);
-            getRanks();
+            // getRanks();
         }
     };
 
