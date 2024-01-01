@@ -1,6 +1,6 @@
 import { SportsSelectedPageProps } from "@/app/sports/[id]/page";
 import AllBlogs from "@/components/Board/AllBlogs";
-import SportsSection from "@/components/SportsSection";
+import SportsSection from "@/components/Board/SportsSection";
 import React, { FC } from "react";
 
 const BlogsQueryPage: FC<SportsSelectedPageProps> = async ({ params }) => {

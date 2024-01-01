@@ -1,5 +1,5 @@
 import SportsRanksHistory from "@/components/Ranks/SportsRanksHistory";
-import SportsSection from "@/components/SportsSection";
+import SportsSection from "@/components/Board/SportsSection";
 import { Prisma } from "@prisma/client";
 import { FC } from "react";
 import { RanksPageProps } from "../page";

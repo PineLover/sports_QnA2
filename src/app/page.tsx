@@ -1,7 +1,7 @@
 import Script from "next/script";
 import AllBlogs from "../components/Board/AllBlogs";
 import MostLikedBlogs from "../components/Board/MostLikedBlogs";
-import SportsSection from "@/components/SportsSection";
+import SportsSection from "@/components/Board/SportsSection";
 
 export default async function Home() {
     return (

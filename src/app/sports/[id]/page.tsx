@@ -1,6 +1,6 @@
 import AllBlogs from "@/components/Board/AllBlogs";
 import MostLikedBlogs from "@/components/Board/MostLikedBlogs";
-import SportsSection from "@/components/SportsSection";
+import SportsSection from "@/components/Board/SportsSection";
 import { FC } from "react";
 
 export interface SportsSelectedPageProps {

@@ -1,6 +1,6 @@
 "use client";
 import AddSports from "@/components/Sports/AddSports";
-import SportsSection from "@/components/SportsSection";
+import SportsSection from "@/components/Board/SportsSection";
 import { Prisma } from "@prisma/client";
 
 export type Sports = Prisma.SportsGetPayload<{
