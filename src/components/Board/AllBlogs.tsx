@@ -55,15 +55,26 @@ const AllBlogs: FC<SportsSelectedPageProps> = ({ params }) => {
                         href={`/blogs/${post.id}`}
                         className="flex bg-white p-4 rounded-md shadow"
                     >
-                        <div className="flex-col">
-                            <h2 className="text-xl font-bold">{post.title}</h2>
-                            <div className="text-sm">{post?.sports?.name}</div>
-                        </div>
-                        <div className="grow"></div>
-                        <div className="flex-col text-xs">
-                            <p>by: {post.author?.name}</p>
-                            <p>{dayjs(post.createdAt).format("YYYY.MM.DD")}</p>
-                            <p>조회 {post.viewCount ?? 0}회</p>
+                        <div className="flex-col w-full">
+                            <h2 className="text-xl font-bold ">
+                                {post.title}
+                                dfasdfasdfasdfasfddfasdfasdfasdfasfddfasdfasdfasdfasfd
+                            </h2>
+                            <div className="flex w-full">
+                                <div className="text-xs">
+                                    {post?.sports?.name}
+                                </div>
+                                <div className="grow"></div>
+                                <div className="text-xs flex space-x-2">
+                                    <p>by: {post.author?.name}</p>
+                                    <p>
+                                        {dayjs(post.createdAt).format(
+                                            "YYYY.MM.DD"
+                                        )}
+                                    </p>
+                                    <p>조회{post.viewCount ?? 0}회</p>
+                                </div>
+                            </div>
                         </div>
                     </Link>
                 ))}
