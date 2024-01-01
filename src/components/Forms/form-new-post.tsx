@@ -85,7 +85,7 @@ const FormNewPost = () => {
         e.preventDefault();
         console.log(e);
         try {
-            const response = await axios.post("api/posts", formData);
+            const response = await axios.post("/api/posts", formData);
 
             if (response.status === 200) {
                 router.push(`/blogs/${response.data.newPost.id}`);

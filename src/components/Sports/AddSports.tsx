@@ -17,7 +17,7 @@ const AddSports = () => {
     const handleSubmit = async () => {
         if (sportsName.trim() !== "") {
             try {
-                const res = await fetch("api/sports/add", {
+                const res = await fetch("/api/sports/add", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
