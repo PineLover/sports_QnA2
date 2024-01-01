@@ -2,6 +2,7 @@ import prisma from "@/lib/db";
 import React, { FC } from "react";
 import dayjs from "dayjs";
 import LikeDisLikeComment from "./LikeDisLikeComment";
+import { getCurrentProfile } from "@/lib/session";
 
 interface CommentsProps {
     postId: string;

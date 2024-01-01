@@ -44,6 +44,16 @@ export async function POST(req: Request) {
                     userId: user?.id,
                 },
             });
+
+            const ures = await prisma.user.update({
+                where: {
+                    id: user?.id,
+                },
+                data: {
+                    name: nickname,
+                },
+            });
+
             return NextResponse.json({ res }, { status: 200 });
         } else {
             const res = await prisma.profile.update({
@@ -57,6 +67,15 @@ export async function POST(req: Request) {
                     address,
                     description,
                     sportsId: sportsId,
+                },
+            });
+
+            const ures = await prisma.user.update({
+                where: {
+                    id: user?.id,
+                },
+                data: {
+                    name: nickname,
                 },
             });
             return NextResponse.json({ res }, { status: 200 });
