@@ -8,12 +8,11 @@ export async function GET(req: NextRequest) {
         let sportsId = req.nextUrl.searchParams.get("sportsId");
         let posts = null;
 
-
         if (q == undefined) {
             q = "";
         }
 
-        if (sportsId == "all") {
+        if (sportsId == "all" || sportsId == null) {
             posts = await prisma.post.findMany({
                 take: 10,
                 where: {

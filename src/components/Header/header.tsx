@@ -41,7 +41,7 @@ const header = async () => {
                     <div className="flex items-center">
                         <FcQuestions />
                         <Link
-                            href="/question"
+                            href="/post"
                             className="font-NotoSansKR text-black hover:underline"
                         >
                             글작성
