@@ -44,6 +44,13 @@ export interface FormEditPostPRops {
     post: Posts;
 }
 
+export interface FormEditData {
+    id: string;
+    title: string;
+    content: string;
+    sportsId: string;
+}
+
 const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
     const quillRef = useRef<ReactQuill | null>(null);
     const [progress, setProgress] = useState<number>(0);
@@ -51,7 +58,8 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
 
     const [sports, setSports] = useState<Sports[]>([]);
 
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<FormEditData>({
+        id: post.id,
         title: "",
         content: "",
         sportsId: "",
@@ -100,7 +108,7 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
         e.preventDefault();
         console.log(e);
         try {
-            const response = await axios.post("/api/posts", formData);
+            const response = await axios.post("/api/posts/edit", formData);
 
             if (response.status === 200) {
                 router.push(`/blogs/${response.data.newPost.id}`);
