@@ -65,7 +65,7 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
         title: post?.title,
         content: post?.content,
         sportsId: "",
-        imgUrl: post?.imgUrl,
+        imgUrl: "",
     });
 
     const getSports = async () => {
@@ -166,8 +166,11 @@ const FormEditPost: FC<FormEditPostPRops> = ({ post }) => {
                                         "image",
                                         downloadURL
                                     );
-                                    setImgUrl(downloadURL);
 
+                                    setFormData({
+                                        ...formData,
+                                        imgUrl: encodeURIComponent(downloadURL),
+                                    });
                                     editor.setSelection(range.index, 1);
                                 }
                             );
